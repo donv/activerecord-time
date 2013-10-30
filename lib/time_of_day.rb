@@ -38,11 +38,16 @@ class TimeOfDay
     Time.local(date.year, date.month, date.day, hour, minute, second)
   end
 
-  def -(seconds)
+  def +(seconds)
     raise "Illegal argument: #{seconds.inspect}" unless seconds.is_a? Numeric
     t = Time.local(0, 1, 1, hour, minute, second)
-    t -= seconds
+    t += seconds
     self.class.new(t.hour, t.min, t.sec)
+  end
+
+  def -(seconds)
+    raise "Illegal argument: #{seconds.inspect}" unless seconds.is_a? Numeric
+    self.+(-seconds)
   end
 
   def <=>(other)
