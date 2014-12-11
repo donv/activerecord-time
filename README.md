@@ -7,7 +7,7 @@ A handler for storing TimeOfDay objects in ActiveRecord objects as SQL time valu
 Also adds load/dump of TimeOfDay objects to and from YAML streams, so you can use
 them in fixtures.
 
-Support MRI, JRuby, and Rubinius at Ruby language level 1.9.3 and later.
+The gem supports MRI and JRuby at Ruby language level 1.9.3 and later.
 
 ## Installation
 
