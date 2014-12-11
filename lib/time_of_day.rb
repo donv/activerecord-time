@@ -1,7 +1,11 @@
+require 'yaml'
+
 class TimeOfDay
-  yaml_as "tag:yaml.org,2002:timestamp#hms"
-  yaml_as "tag:yaml.org,2002:time"
-  yaml_as "tag:ruby.yaml.org,2002:time"
+  # FIXME(uwe):  Not necessary?
+  def to_yaml_type
+    '!tag:yaml.org,2002:time'
+  end
+  # EMXIF
 
   attr_accessor :hour # 0 - 23
   attr_accessor :minute # 0 - 59
@@ -14,10 +18,12 @@ class TimeOfDay
     @hour, @minute, @second = hour, minute, second
   end
 
+  # FIXME(uwe):  Not necessary?
   def init_with(coder)
     parts = self.class.parse_parts(coder.scalar)
     initialize(*parts)
   end
+  # EMXIF
 
   def self.now
     Time.now.time_of_day
@@ -28,11 +34,13 @@ class TimeOfDay
     self.new(*parse_parts(string))
   end
 
+  # FIXME(uwe):  Not necessary?
   def self.parse_parts(string)
     string.strip!
     raise "Illegal time format: '#{string}'" unless string =~ /^(\d{1,2}):?(\d{2})?(?::(\d{1,2}))?$/
     [$1.to_i, $2.to_i, $3.to_i]
   end
+  # EMXIF
 
   def on(date)
     Time.local(date.year, date.month, date.day, hour, minute, second)
@@ -85,25 +93,29 @@ class TimeOfDay
 
   def to_s(with_seconds = true)
     if with_seconds
-      "%02d:%02d:%02d" % [@hour, @minute, @second]
+      '%02d:%02d:%02d' % [@hour, @minute, @second]
     else
-      "%02d:%02d" % [@hour, @minute]
+      '%02d:%02d' % [@hour, @minute]
     end
   end
 
+    # FIXME(uwe):  Not necessary?
   def self.yaml_new(klass, tag, val)
     if String === val
       self.parse val
     else
-      raise YAML::TypeError, "Invalid Time: " + val.inspect
+      raise YAML::TypeError, 'Invalid Time: ' + val.inspect
     end
   end
+  # EMXIF
 
+  # FIXME(uwe):  Not necessary?
   def to_yaml(opts = {})
     YAML::quick_emit(nil, opts) do |out|
       out.scalar('tag:yaml.org,2002:time', self.to_s, :plain)
     end
   end
+  # EMXIF
 
 end
 
@@ -120,3 +132,5 @@ class Date
   end
 
 end
+
+YAML.add_tag 'tag:yaml.org,2002:time', TimeOfDay

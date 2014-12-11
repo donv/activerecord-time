@@ -5,8 +5,9 @@ module ActiveRecord
         return TimeOfDay if :time === type
         klass_without_time_of_day
       end
+
       alias_method_chain :klass, :time_of_day
-      
+
       def self.string_to_dummy_time(string)
         return string if string.is_a? TimeOfDay
         return nil if string.empty?
@@ -18,8 +19,9 @@ module ActiveRecord
         return "'#{quoted_time(value)}'" if TimeOfDay === value
         quote_without_time_of_day(value, column)
       end
+
       alias_method_chain :quote, :time_of_day
-      
+
       def quoted_time(value)
         value.to_s
       end
