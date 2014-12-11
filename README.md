@@ -1,6 +1,13 @@
 # activerecord-time
 
+[![Build Status](https://travis-ci.org/donv/activerecord-time.svg)](https://travis-ci.org/donv/activerecord-time)
+
 A handler for storing TimeOfDay objects in ActiveRecord objects as sql time values.
+
+Also adds load/dump of TimeOfDay object to and from YAML streams, so you can use
+them in fixtures.
+
+Support MRI, JRuby, and Rubinius at Ruby language level 1.9.3 and later.
 
 ## Installation
 
@@ -24,7 +31,7 @@ TimeOfDay objects.
 ```Ruby
 create_table :schedules do |t|
   ...
-  t.column :start_at, :time
+  t.time :start_at
   ...
 end
 ```

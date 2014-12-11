@@ -25,13 +25,13 @@ class TimeOfDayTest < Minitest::Test
   end
 
   def test_yaml_load
-    hash = YAML.load("start_at: !!time 12:34:56")
+    hash = YAML.load('start_at: !!time 12:34:56')
     assert_equal({'start_at' => TimeOfDay.parse('12:34:56')}, hash)
   end
 
   def test_yaml_dump
     string = YAML.dump({'start_at' => TimeOfDay.parse('12:34:56')})
-    assert_equal("---\nstart_at: !!time 12:34:56\n", string)
+    assert_match /---\nstart_at: !!time '?12:34:56'?\n/, string
   end
 
   def test_activerecord
