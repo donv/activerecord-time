@@ -7,13 +7,14 @@ sqlite3:
   :database: ":memory:"
 postgresql:
   :adapter: postgresql
+  :host: localhost
   :username: postgres
-  :password: postgres
-  :database: plugin_test
+  :password:
+  :database: activerecord-time_test
   :min_messages: ERROR
 mysql:
   :adapter: mysql
   :host: localhost
   :username: rails
   :password:
-  :database: plugin_test
+  :database: activerecord-time_test
