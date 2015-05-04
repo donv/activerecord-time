@@ -1,15 +1,15 @@
 language: ruby
 sudo: false
 rvm:
-  - "1.9.3"
-  - "2.0.0"
-  - "2.1"
-  - "2.2"
-  - ruby-head
-  - jruby-19mode
   - jruby-head
+  - ruby-head
+  - "2.2"
+  - jruby-19mode
+  - "2.1"
+  - "2.0.0"
+  - "1.9.3"
 env:
-  - AR_VERSION=~>3.2.21
-  - AR_VERSION=~>4.0.21
-  - AR_VERSION=~>4.1.10
-  - AR_VERSION=~>4.2.1
+  - AR_VERSION="~>4.2.1"
+  - AR_VERSION="~>4.1.10"
+  - AR_VERSION="~>4.0.21"
+  - AR_VERSION="~>3.2.21"
