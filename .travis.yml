@@ -11,5 +11,5 @@ rvm:
 env:
   - AR_VERSION="~>4.2.1"
   - AR_VERSION="~>4.1.10"
-  - AR_VERSION="~>4.0.21"
+  - AR_VERSION="~>4.0.13"
   - AR_VERSION="~>3.2.21"
