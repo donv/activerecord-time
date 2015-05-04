@@ -41,7 +41,7 @@ or
 ```Ruby
 create_table :schedules do |table|
   ...
-  t.time :start_at
+  t.column :start_at, :time
   ...
 end
 ```
