@@ -11,7 +11,7 @@ travis['rvm'].each do |ruby|
   exit $? unless $? == 0
   system "rvm #{ruby} do gem install bundler"
   exit $? unless $? == 0
-  travis['gemfiles'].each do |gemfile|
+  travis['gemfile'].each do |gemfile|
     puts '$' * 80
     puts "Testing #{gemfile}"
     puts
