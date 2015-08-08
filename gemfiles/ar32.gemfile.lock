@@ -50,8 +50,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord (~> 3.2.21)
-  activerecord-jdbc-adapter (>= 1.3.17x)!
+  activerecord (~> 3.2.22)
+  activerecord-jdbc-adapter (>= 1.3.17)!
   activerecord-jdbcpostgresql-adapter
   activerecord-jdbcsqlite3-adapter
   minitest-reporters
