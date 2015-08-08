@@ -11,6 +11,7 @@ require 'active_record'
 require 'activerecord-time'
 require 'logger'
 require 'fileutils'
+require 'yaml'
 
 FileUtils.rm_rf File.expand_path(':memory:', File.dirname(__FILE__))
 config = YAML::load(IO.read(File.dirname(__FILE__) + '/database.yml'))

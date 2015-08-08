@@ -3,13 +3,17 @@ sudo: false
 rvm:
   - jruby-head
   - ruby-head
+  - jruby-9.0.0.0
   - "2.2"
-  - jruby-19mode
   - "2.1"
   - "2.0.0"
-  - "1.9.3"
+  - jruby-19mode
+gemfiles:
+  - gemfiles/ar42.gemfile
+  - gemfiles/ar41.gemfile
+  - gemfiles/ar40.gemfile
+  - gemfiles/ar32.gemfile
 env:
-  - AR_VERSION="~>4.2.1"
-  - AR_VERSION="~>4.1.10"
-  - AR_VERSION="~>4.0.13"
-  - AR_VERSION="~>3.2.21"
+  - ADAPTER="postgresql"
+  - ADAPTER="derby"
+  - ADAPTER="sqlite3"

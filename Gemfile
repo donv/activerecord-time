@@ -9,6 +9,6 @@ end
 
 # TODO(uwe): Remove when ARJDBC 1.4.0 is out
 if RUBY_ENGINE == 'jruby'
-  gem 'activerecord-jdbc-adapter', '>= 1.4.0.dev', github: 'jruby/activerecord-jdbc-adapter'
+  gem 'activerecord-jdbc-adapter', '>= 1.3.17', github: 'jruby/activerecord-jdbc-adapter', branch: '1-3-stable'
 end
 # ODOT

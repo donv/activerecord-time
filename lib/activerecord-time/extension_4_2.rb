@@ -1,5 +1,3 @@
-require 'active_record/type/time'
-
 module ActiveRecord
   module ConnectionAdapters
     module Quoting

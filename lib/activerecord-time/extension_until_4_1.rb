@@ -1,5 +1,4 @@
 require 'active_record/connection_adapters/abstract/quoting'
-require 'active_record/connection_adapters/sqlite3_adapter'
 
 module ActiveRecord
   module ConnectionAdapters

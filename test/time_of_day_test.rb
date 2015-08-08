@@ -39,7 +39,7 @@ class TimeOfDayTest < Minitest::Test
   end
 
   def test_column_type
-    assert_equal [:integer, :string, :time], Event.columns.map(&:type)
+    assert_equal [:integer, :string, :time, :binary], Event.columns.map(&:type)
   end
 
   def test_activerecord
@@ -63,6 +63,21 @@ class TimeOfDayTest < Minitest::Test
     # ODOT
 
     t.destroy
+  end
+
+  def test_activerecord_binary_column
+    text = 'Some binary content'
+    Event.create! content: text
+    e = Event.where(content: text).first
+    assert_equal text, e.content
+
+    # TODO(uwe): Simplify when we stop supporting ActiveRecord 3
+    if ActiveRecord::VERSION::MAJOR >= 4
+      e.update! content: 'Other binary content'
+    else
+      e.update_attributes! content: 'Other binary content'
+    end
+    # ODOT
   end
 
 end
