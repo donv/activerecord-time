@@ -95,6 +95,10 @@ class TimeOfDay
     end
   end
 
+  def to_json(*)
+    %{"#{to_s}"}
+  end
+
 end
 
 class Time
