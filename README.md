@@ -7,6 +7,8 @@ A handler for storing TimeOfDay objects in ActiveRecord objects as SQL time valu
 Also adds load/dump of TimeOfDay objects to and from YAML streams, so you can use
 them in fixtures.
 
+Also adds JSON encode/decode.
+
 The gem supports MRI and JRuby at Ruby language level 1.9.3 and later.
 
 ## Installation
@@ -75,3 +77,15 @@ schedule.start_time = '08:34'
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Testing
+
+Run tests using
+
+    rake
+    
+### Matrix test
+
+    ./matrix_test.rb
+
+This will run the tests for the same environments as travis-ci.
