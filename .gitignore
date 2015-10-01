@@ -5,6 +5,7 @@ debug.log
 *.rbc
 .bundle
 .config
+.DS_Store
 .idea
 .yardoc
 Gemfile.lock
