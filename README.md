@@ -27,8 +27,8 @@ Or install it yourself as:
 
 ## Usage
 
-Create your tables with fields with type :time and you will be able to access them as
-TimeOfDay objects.
+Create your tables with fields with type :time and you will be able to access
+them as TimeOfDay objects.
 
 ```Ruby
 create_table :schedules do |t|
@@ -66,6 +66,37 @@ or
 ```Ruby
 schedule = Schedule.new
 schedule.start_time = '08:34'
+```
+
+## TimeOfDay Kernel extension
+
+Kernel is extended with a TimeOfDay constructor that takes either a parseable
+String or one or more integers.
+
+```Ruby
+party_starts_at = TimeOfDay('17:59')
+dancing_starts_at = TimeOfDay(20, 02)
+```
+
+## TimeOfDay Date extension
+
+Ruby Date objects are extended with the `at` method that takes a TimeOfDay
+argument to produce a Ruby Time object.  As a shortcut, a String that is
+parseable by TimeOfDay can be given.
+
+```Ruby
+halloween = Date.parse('2015-10-31')
+trick_or_treat = halloween.at(TimeOfDay.parse('18:00'))
+halloween_dinner = halloween.at('20:00')
+```
+
+## TimeOfDay Time extension
+
+Ruby Time objects are extended with the `time_of_day` method that returns a
+TimeOfDay object corresponding to the time of day of the Time object.
+
+```Ruby
+Time.parse('2015-10-31 20:00').time_of_day # returns TimeOfDay(20, 0)
 ```
 
 

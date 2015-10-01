@@ -23,6 +23,20 @@ class TimeOfDayTest < Minitest::Test
     assert_equal 3, tod.second
   end
 
+  def test_kernel_initialize
+    tod = TimeOfDay(1, 2, 3)
+    assert_equal 1, tod.hour
+    assert_equal 2, tod.minute
+    assert_equal 3, tod.second
+  end
+
+  def test_kernel_initialize_string
+    tod = TimeOfDay('01:02:03')
+    assert_equal 1, tod.hour
+    assert_equal 2, tod.minute
+    assert_equal 3, tod.second
+  end
+
   def test_now
     tod = TimeOfDay.now
     assert tod.hour
@@ -161,6 +175,18 @@ class TimeOfDayTest < Minitest::Test
 
   def test_date_at
     tod = TimeOfDay.new(12, 13, 14)
+    d = Date.new(2000, 12, 31)
+    t = d.at(tod)
+    assert_equal 12, t.hour
+    assert_equal 13, t.min
+    assert_equal 14, t.sec
+    assert_equal 2000, t.year
+    assert_equal 12, t.month
+    assert_equal 31, t.day
+  end
+
+  def test_date_at_string
+    tod = '12:13:14'
     d = Date.new(2000, 12, 31)
     t = d.at(tod)
     assert_equal 12, t.hour

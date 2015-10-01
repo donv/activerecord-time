@@ -9,7 +9,7 @@ travis['rvm'].each do |ruby|
   puts
   system "rvm install #{ruby}"
   exit $? unless $? == 0
-  system "rvm #{ruby} do gem install bundler"
+  system "rvm #{ruby} do gem query -i -n bundler >/dev/null || gem install bundler"
   exit $? unless $? == 0
   travis['gemfile'].each do |gemfile|
     puts '$' * 80

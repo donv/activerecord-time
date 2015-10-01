@@ -13,6 +13,9 @@ require 'logger'
 require 'fileutils'
 require 'yaml'
 
+require 'simplecov'
+SimpleCov.start
+
 FileUtils.rm_rf File.expand_path(':memory:', File.dirname(__FILE__))
 config = YAML::load(IO.read(File.dirname(__FILE__) + '/database.yml'))
 ActiveRecord::Base.logger = Logger.new(File.dirname(__FILE__) + '/test.log')
