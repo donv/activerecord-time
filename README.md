@@ -9,7 +9,11 @@ them in fixtures.
 
 Also adds JSON encode/decode.
 
-The gem supports MRI and JRuby at Ruby language level 1.9.3 and later.
+The gem supports MRI and JRuby at Ruby language level 1.9.3 and later.  Other
+Ruby implementations may work.
+
+ActiveRecord 3.2 and later supported.
+
 
 ## Installation
 
