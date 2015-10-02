@@ -20,3 +20,6 @@ env:
 matrix:
   allow_failures:
     - rvm: ruby-head
+      gemfile: gemfiles/ar40.gemfile
+    - rvm: ruby-head
+      gemfile: gemfiles/ar32.gemfile
