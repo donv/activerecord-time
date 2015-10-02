@@ -13,12 +13,13 @@ gemfile:
   - gemfiles/ar41.gemfile
   - gemfiles/ar40.gemfile
   - gemfiles/ar32.gemfile
-global:
-  - JRUBY_OPTS="--dev"
 env:
-  - ADAPTER="postgresql"
-  - ADAPTER="derby"
-  - ADAPTER="sqlite3"
+  global:
+    - JRUBY_OPTS="--dev"
+  matrix:
+    - ADAPTER="postgresql"
+    - ADAPTER="derby"
+    - ADAPTER="sqlite3"
 matrix:
   allow_failures:
     - rvm: ruby-head
