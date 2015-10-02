@@ -17,3 +17,6 @@ env:
   - ADAPTER="postgresql"
   - ADAPTER="derby"
   - ADAPTER="sqlite3"
+matrix:
+  allow_failures:
+    - rvm: ruby-head
