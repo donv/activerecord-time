@@ -13,6 +13,8 @@ gemfile:
   - gemfiles/ar41.gemfile
   - gemfiles/ar40.gemfile
   - gemfiles/ar32.gemfile
+global:
+  - JRUBY_OPTS="--dev"
 env:
   - ADAPTER="postgresql"
   - ADAPTER="derby"
