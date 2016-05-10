@@ -27,7 +27,7 @@ class TimeOfDay
   end
 
   def self.parse_parts(string)
-    string.strip!
+    string = string.strip
     raise "Illegal time format: '#{string}'" unless string =~ /^(\d{1,2}):?(\d{2})?(?::(\d{1,2}))?$/
     [$1.to_i, $2.to_i, $3.to_i]
   end

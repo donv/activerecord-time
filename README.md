@@ -14,6 +14,8 @@ Ruby implementations may work.
 
 ActiveRecord 3.2 and later supported.
 
+Ruby 1.9.3 to 2.3.1 supported, including JRuby.
+
 
 ## Installation
 

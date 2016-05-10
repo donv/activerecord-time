@@ -54,6 +54,18 @@ class TimeOfDayTest < Minitest::Test
     assert_equal 59, tod.second
   end
 
+  def test_parse_immutable_string
+    tod = TimeOfDay.parse('10:01'.freeze)
+    assert_equal 10, tod.hour
+    assert_equal 1, tod.minute
+    assert_equal 0, tod.second
+
+    tod = TimeOfDay.parse('23:59:59'.freeze)
+    assert_equal 23, tod.hour
+    assert_equal 59, tod.minute
+    assert_equal 59, tod.second
+  end
+
   def test_parse_full
     assert_equal @twelve_o_clock, TimeOfDay.parse('12:00:00')
   end
@@ -73,7 +85,7 @@ class TimeOfDayTest < Minitest::Test
 
   def test_yaml_dump
     string = YAML.dump({'start_at' => TimeOfDay.parse('12:34:56')})
-    assert_match /---\nstart_at: !!time '?12:34:56'?\n/, string
+    assert_match(/---\nstart_at: !!time '?12:34:56'?\n/, string)
   end
 
   def test_column_type
@@ -152,7 +164,7 @@ class TimeOfDayTest < Minitest::Test
   def test_spaceship
     tod1 = TimeOfDay.new(12, 0)
     tod2 = TimeOfDay.new(13, 0)
-    assert_equal -1, tod1 <=> tod2
+    assert_equal(-1, tod1 <=> tod2)
     assert_equal 1, tod2 <=> tod1
     assert_equal 0, tod1 <=> tod1
   end
@@ -170,7 +182,7 @@ class TimeOfDayTest < Minitest::Test
 
   def test_to_yaml
     tod = TimeOfDay.new(12, 13, 14)
-    assert_match /--- !!time '?12:13:14'?\n/, tod.to_yaml
+    assert_match(/--- !!time '?12:13:14'?\n/, tod.to_yaml)
   end
 
   def test_date_at
