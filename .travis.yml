@@ -1,5 +1,8 @@
 language: ruby
 sudo: false
+jdk:
+  - oraclejdk8
+before_install: gem query -i -n ^bundler$ >/dev/null || gem install bundler
 rvm:
   - 2.3.1
   - jruby-9.1.0.0
@@ -16,9 +19,9 @@ gemfile:
   - gemfiles/ar40.gemfile
   - gemfiles/ar32.gemfile
 env:
-  - ADAPTER="postgresql"
-  - ADAPTER="derby"
-  - ADAPTER="sqlite3"
+  - JRUBY_OPTS="--dev --debug" ADAPTER="postgresql"
+  - JRUBY_OPTS="--dev --debug" ADAPTER="derby"
+  - JRUBY_OPTS="--dev --debug" ADAPTER="sqlite3"
 matrix:
   allow_failures:
     - rvm: ruby-head
