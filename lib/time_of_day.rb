@@ -18,6 +18,11 @@ class TimeOfDay
     initialize(*parts)
   end
 
+  def encode_with(coder)
+    coder.tag = 'tag:yaml.org,2002:time'
+    coder.scalar = self.to_s
+  end
+
   def self.now
     Time.now.time_of_day
   end
@@ -87,12 +92,6 @@ class TimeOfDay
       '%02d:%02d:%02d' % [@hour, @minute, @second]
     else
       '%02d:%02d' % [@hour, @minute]
-    end
-  end
-
-  def to_yaml(opts = {})
-    YAML::quick_emit(nil, opts) do |out|
-      out.scalar('tag:yaml.org,2002:time', self.to_s, :plain)
     end
   end
 

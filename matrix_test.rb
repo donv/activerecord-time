@@ -8,6 +8,7 @@ require 'yaml'
 travis = YAML.load(File.read('.travis.yml'))
 
 travis['rvm'].each do |ruby|
+  next if ruby =~ /head/
   puts '#' * 80
   puts "Testing #{ruby}"
   puts

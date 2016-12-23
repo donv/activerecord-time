@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
 end
 
 # TODO(uwe): Remove when we stop testing ActiveRecord 4.0
-MiniTest::Test = Minitest::Unit unless defined? Minitest::Test
+Minitest::Test = Minitest::Unit unless defined? Minitest::Test
 # ODOT
 
 class TimeOfDayTest < Minitest::Test

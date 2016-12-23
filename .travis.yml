@@ -22,5 +22,9 @@ env:
   - JRUBY_OPTS="--dev --debug" ADAPTER="sqlite3"
 matrix:
   allow_failures:
+    - rvm: ruby-head
+      gemfile: gemfiles/ar42.gemfile
+    - rvm: ruby-head
+      gemfile: gemfiles/ar41.gemfile
     - rvm: ruby-2.1.9
       gemfile: gemfiles/ar50.gemfile
