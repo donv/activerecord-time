@@ -10,35 +10,40 @@ module ActiveRecord
         return "'#{value.to_s(:db)}'" if value.is_a?(TimeOfDay)
         quote_without_time_of_day(value, column)
       end
+
       alias_method_chain :quote, :time_of_day
+
       def type_cast_with_time_of_day(value, column)
         return value.to_s if value.is_a?(TimeOfDay)
         type_cast_without_time_of_day(value, column)
       end
+
       alias_method_chain :type_cast, :time_of_day
     end
   end
 end
 
-module Activerecord::Time
-  module DummyTime
-    def klass
-      return TimeOfDay if :time == type
-      super
-    end
-
-    module ClassMethods
-      def string_to_dummy_time(value)
-        return value if value.is_a? TimeOfDay
-        return value.time_of_day if value.is_a? ::Time
-        return nil if value.empty?
-        TimeOfDay.parse(value)
+module Activerecord
+  module Time
+    module DummyTime
+      def klass
+        return TimeOfDay if :time == type
+        super
       end
-    end
 
-    def self.prepended(base)
-      class << base
-        prepend ClassMethods
+      module ClassMethods
+        def string_to_dummy_time(value)
+          return value if value.is_a? TimeOfDay
+          return value.time_of_day if value.is_a? ::Time
+          return nil if value.empty?
+          TimeOfDay.parse(value)
+        end
+      end
+
+      def self.prepended(base)
+        class << base
+          prepend ClassMethods
+        end
       end
     end
   end
@@ -48,13 +53,13 @@ ActiveRecord::ConnectionAdapters::Column.prepend Activerecord::Time::DummyTime
 
 module Arel
   module Visitors
-    class Arel::Visitors::Visitor
+    class Visitor
       if Gem::Version.new(Arel::VERSION) >= Gem::Version.new('5.0.0')
-        def visit_TimeOfDay(o, _a)
+        def visit_TimeOfDay(o, _a) # rubocop: disable Style/MethodName
           "'#{o.to_s(:db)}'"
         end
       else
-        def visit_TimeOfDay(o)
+        def visit_TimeOfDay(o) # rubocop: disable Style/MethodName
           "'#{o.to_s(:db)}'"
         end
       end

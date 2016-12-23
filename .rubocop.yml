@@ -13,8 +13,24 @@ AllCops:
 Rails:
   Enabled: true
 
+Style/Documentation:
+  Enabled: false
+
 Style/Encoding:
   Enabled: true
+
+Style/FileName:
+  Exclude:
+    - 'lib/activerecord-time.rb'
+
+Style/FormatString:
+  EnforcedStyle: percent
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/ParallelAssignment:
+  Enabled: false
 
 Style/SafeNavigation:
   ConvertCodeThatCanStartToReturnNil: true

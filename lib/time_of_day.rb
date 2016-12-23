@@ -114,7 +114,7 @@ class Date
 end
 
 module Kernel
-  def TimeOfDay(string_or_int, *ints)
+  def TimeOfDay(string_or_int, *ints) # rubocop: disable Style/MethodName
     if string_or_int.is_a? String
       raise(ArgumentError, 'TimeOfDay() takes a string or multiple integers as arguments') unless ints.empty?
       TimeOfDay.parse(string_or_int)

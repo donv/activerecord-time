@@ -1,15 +1,17 @@
 require 'active_record/connection_adapters/abstract/quoting'
 
-module Activerecord::Time
-  module Quoting
-    def _quote(value)
-      return "'#{value}'" if value.is_a?(TimeOfDay)
-      super(value)
-    end
+module Activerecord
+  module Time
+    module Quoting
+      def _quote(value)
+        return "'#{value}'" if value.is_a?(TimeOfDay)
+        super(value)
+      end
 
-    def _type_cast(value)
-      return value.to_s if value.is_a?(TimeOfDay)
-      super(value)
+      def _type_cast(value)
+        return value.to_s if value.is_a?(TimeOfDay)
+        super(value)
+      end
     end
   end
 end
