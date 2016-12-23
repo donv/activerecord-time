@@ -4,16 +4,14 @@ jdk:
   - oraclejdk8
 before_install: gem query -i -n ^bundler$ >/dev/null || gem install bundler
 rvm:
-  - 2.3.1
-  - jruby-9.1.0.0
-  - 2.2
-  - jruby-9.0.5.0
-  - 2.1
-  - 2.0.0
-  - jruby-1.7.25
+  - ruby-2.3.3
+  - jruby-9.1.6.0
+  - ruby-2.2.6
+  - ruby-2.1.9
   - ruby-head
   - jruby-head
 gemfile:
+  - gemfiles/ar50.gemfile
   - gemfiles/ar42.gemfile
   - gemfiles/ar41.gemfile
   - gemfiles/ar40.gemfile
@@ -24,7 +22,5 @@ env:
   - JRUBY_OPTS="--dev --debug" ADAPTER="sqlite3"
 matrix:
   allow_failures:
-    - rvm: ruby-head
-      gemfile: gemfiles/ar40.gemfile
-    - rvm: ruby-head
-      gemfile: gemfiles/ar32.gemfile
+    - rvm: ruby-2.1.9
+      gemfile: gemfiles/ar50.gemfile

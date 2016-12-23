@@ -1,5 +1,6 @@
 require 'yaml'
 
+# rubocop: disable Rails/TimeZone, Rails/Date
 class TimeOfDay
   attr_accessor :hour # 0 - 23
   attr_accessor :minute # 0 - 59

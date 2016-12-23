@@ -9,6 +9,9 @@ if ActiveRecord::VERSION::MAJOR < 3 ||
 elsif ActiveRecord::VERSION::MAJOR == 3 ||
     (ActiveRecord::VERSION::MAJOR == 4 && ActiveRecord::VERSION::MINOR <= 1)
   require 'activerecord-time/extension_until_4_1'
-elsif ActiveRecord.gem_version >= Gem::Version.new('4.2.0')
+# TODO(uwe): Simplify when we stop supporting ActiveRecord 4.2
+elsif ActiveRecord::VERSION::MAJOR == 4 && ActiveRecord::VERSION::MINOR >= 2
   require 'activerecord-time/extension_4_2'
+elsif ActiveRecord.gem_version >= Gem::Version.new('5.0.0')
+  require 'activerecord-time/extension_5_0'
 end

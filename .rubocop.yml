@@ -1,0 +1,20 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 2.0
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  Include:
+    - '**/Gemfile'
+    - '**/Rakefile'
+  Exclude:
+    - 'gemfiles/vendor/**/*'
+
+Rails:
+  Enabled: true
+
+Style/Encoding:
+  Enabled: true
+
+Style/SafeNavigation:
+  ConvertCodeThatCanStartToReturnNil: true

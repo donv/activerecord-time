@@ -1,9 +1,17 @@
 source 'https://rubygems.org'
 
 platform :jruby do
-  gem 'activerecord-jdbc-adapter'
-  gem 'activerecord-jdbcpostgresql-adapter'
-  gem 'activerecord-jdbcsqlite3-adapter'
+  if defined?(RAILS_5)
+    gem 'activerecord-jdbc-adapter', github: 'jruby/activerecord-jdbc-adapter', branch: 'rails-5'
+    gem 'activerecord-jdbcpostgresql-adapter', github: 'jruby/activerecord-jdbc-adapter', branch: 'rails-5'
+    gem 'activerecord-jdbcsqlite3-adapter', github: 'jruby/activerecord-jdbc-adapter', branch: 'rails-5'
+    gem 'jdbc-postgres', github: 'jruby/activerecord-jdbc-adapter', branch: 'rails-5'
+    gem 'jdbc-sqlite3', github: 'jruby/activerecord-jdbc-adapter', branch: 'rails-5'
+  else
+    gem 'activerecord-jdbc-adapter'
+    gem 'activerecord-jdbcpostgresql-adapter'
+    gem 'activerecord-jdbcsqlite3-adapter'
+  end
 end
 
 platform :ruby do

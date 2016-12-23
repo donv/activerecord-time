@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
   gem.test_files = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = %w(lib)
 
-  gem.add_runtime_dependency 'activerecord', '>=3.2.21', '<5.0.0'
+  gem.add_runtime_dependency 'activerecord', '>=3.2.21', '<5.1'
 
   if defined? JRUBY_VERSION
     gem.add_development_dependency 'activerecord-jdbcpostgresql-adapter'
@@ -30,5 +30,6 @@ Gem::Specification.new do |gem|
   end
   gem.add_development_dependency 'minitest-reporters'
   gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'rubocop'
   gem.add_development_dependency 'simplecov'
 end
