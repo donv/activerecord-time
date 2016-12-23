@@ -12,13 +12,12 @@ travis['rvm'].each do |ruby|
   puts '#' * 80
   puts "Testing #{ruby}"
   puts
-  system "ruby-install --no-reinstall #{ruby}"
-  exit $?.exitstatus unless $? == 0
-  system "chruby-exec #{ruby} -- gem query -i -n bundler >/dev/null || chruby-exec #{ruby} -- gem install bundler"
-  exit $?.exitstatus unless $? == 0
+  system "ruby-install --no-reinstall #{ruby}" || exit(1)
+  bundler_gem_check_cmd = "chruby-exec #{ruby} -- gem query -i -n bundler >/dev/null"
+  system "#{bundler_gem_check_cmd} || chruby-exec #{ruby} -- gem install bundler" || exit(1)
   travis['gemfile'].each do |gemfile|
-    if travis['matrix']['allow_failures'].any? { |f| f['rvm'] == ruby && f['gemfile'] == gemfile }
-      puts 'Skipping allowed failure.'
+    if travis['matrix']['exclude'].any? { |f| f['rvm'] == ruby && f['gemfile'] == gemfile }
+      puts 'Skipping known failure.'
       next
     end
     puts '$' * 80
@@ -29,8 +28,7 @@ travis['rvm'].each do |ruby|
       system "chruby-exec #{ruby} -- bundle update"
     else
       system "chruby-exec #{ruby} -- bundle check || chruby-exec #{ruby} -- bundle install"
-    end
-    exit $?.exitstatus unless $? == 0
+    end || exit(1)
     travis['env'].each do |env|
       env.scan(/\b(?<key>[A-Z_]+)="(?<value>.+?)"/) do |key, value|
         ENV[key] = value
@@ -38,8 +36,7 @@ travis['rvm'].each do |ruby|
       puts '*' * 80
       puts "Testing #{ruby} #{gemfile} #{env}"
       puts
-      system "chruby-exec #{ruby} -- bundle exec rake"
-      exit $?.exitstatus unless $? == 0
+      system "chruby-exec #{ruby} -- bundle exec rake" || exit(1)
       puts '*' * 80
     end
     puts "Testing #{gemfile} OK"

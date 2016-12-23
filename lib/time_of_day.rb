@@ -20,7 +20,7 @@ class TimeOfDay
 
   def encode_with(coder)
     coder.tag = 'tag:yaml.org,2002:time'
-    coder.scalar = self.to_s
+    coder.scalar = to_s
   end
 
   def self.now
@@ -29,29 +29,29 @@ class TimeOfDay
 
   def self.parse(string)
     return nil if string.blank?
-    self.new(*parse_parts(string))
+    new(*parse_parts(string))
   end
 
   def self.parse_parts(string)
     string = string.strip
     raise "Illegal time format: '#{string}'" unless string =~ /^(\d{1,2}):?(\d{2})?(?::(\d{1,2}))?$/
-    [$1.to_i, $2.to_i, $3.to_i]
+    [Regexp.last_match(1).to_i, Regexp.last_match(2).to_i, Regexp.last_match(3).to_i]
   end
 
   def on(date)
     Time.local(date.year, date.month, date.day, hour, minute, second)
   end
 
-  def +(seconds)
-    raise "Illegal argument: #{seconds.inspect}" unless seconds.is_a? Numeric
+  def +(other)
+    raise "Illegal argument: #{other.inspect}" unless other.is_a? Numeric
     t = Time.local(0, 1, 1, hour, minute, second)
-    t += seconds
+    t += other
     self.class.new(t.hour, t.min, t.sec)
   end
 
-  def -(seconds)
-    raise "Illegal argument: #{seconds.inspect}" unless seconds.is_a? Numeric
-    self.+(-seconds)
+  def -(other)
+    raise "Illegal argument: #{other.inspect}" unless other.is_a? Numeric
+    self.+(-other)
   end
 
   def <=>(other)
@@ -96,16 +96,14 @@ class TimeOfDay
   end
 
   def to_json(*)
-    %{"#{to_s}"}
+    %("#{self}")
   end
-
 end
 
 class Time
   def time_of_day
     TimeOfDay.new(hour, min, sec)
   end
-
 end
 
 class Date
@@ -113,7 +111,6 @@ class Date
     time_of_day = TimeOfDay.parse(time_of_day) if time_of_day.is_a?(String)
     Time.local(year, month, day, time_of_day.hour, time_of_day.minute, time_of_day.second)
   end
-
 end
 
 module Kernel

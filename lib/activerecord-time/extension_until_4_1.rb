@@ -4,15 +4,15 @@ module ActiveRecord
   module ConnectionAdapters
     module Quoting
       def quote_with_time_of_day(value, column = nil)
-        if column && column.type == :time && Integer === value
+        if column && column.type == :time && value.is_a?(Integer)
           value = TimeOfDay.new(value / 3600, (value % 3600) / 60, value % 60)
         end
-        return "'#{value.to_s(:db)}'" if TimeOfDay === value
+        return "'#{value.to_s(:db)}'" if value.is_a?(TimeOfDay)
         quote_without_time_of_day(value, column)
       end
       alias_method_chain :quote, :time_of_day
       def type_cast_with_time_of_day(value, column)
-        return value.to_s if TimeOfDay === value
+        return value.to_s if value.is_a?(TimeOfDay)
         type_cast_without_time_of_day(value, column)
       end
       alias_method_chain :type_cast, :time_of_day
@@ -23,7 +23,7 @@ end
 module Activerecord::Time
   module DummyTime
     def klass
-      return TimeOfDay if :time === type
+      return TimeOfDay if :time == type
       super
     end
 
@@ -50,11 +50,11 @@ module Arel
   module Visitors
     class Arel::Visitors::Visitor
       if Gem::Version.new(Arel::VERSION) >= Gem::Version.new('5.0.0')
-        def visit_TimeOfDay o, a
+        def visit_TimeOfDay(o, _a)
           "'#{o.to_s(:db)}'"
         end
       else
-        def visit_TimeOfDay o
+        def visit_TimeOfDay(o)
           "'#{o.to_s(:db)}'"
         end
       end
