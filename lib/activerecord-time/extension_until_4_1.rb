@@ -2,21 +2,6 @@ require 'active_record/connection_adapters/abstract/quoting'
 
 module ActiveRecord
   module ConnectionAdapters
-    class Column
-      def klass_with_time_of_day
-        return TimeOfDay if :time === type
-        klass_without_time_of_day
-      end
-
-      alias_method_chain :klass, :time_of_day
-
-      def self.string_to_dummy_time(string)
-        return string if string.is_a? TimeOfDay
-        return string.time_of_day if string.is_a? ::Time
-        return nil if string.empty?
-        TimeOfDay.parse(string)
-      end
-    end
     module Quoting
       def quote_with_time_of_day(value, column = nil)
         if column && column.type == :time && Integer === value
@@ -34,6 +19,32 @@ module ActiveRecord
     end
   end
 end
+
+module Activerecord::Time
+  module DummyTime
+    def klass
+      return TimeOfDay if :time === type
+      super
+    end
+
+    module ClassMethods
+      def string_to_dummy_time(value)
+        return value if value.is_a? TimeOfDay
+        return value.time_of_day if value.is_a? ::Time
+        return nil if value.empty?
+        TimeOfDay.parse(value)
+      end
+    end
+
+    def self.prepended(base)
+      class << base
+        prepend ClassMethods
+      end
+    end
+  end
+end
+
+ActiveRecord::ConnectionAdapters::Column.prepend Activerecord::Time::DummyTime
 
 module Arel
   module Visitors

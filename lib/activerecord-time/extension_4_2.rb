@@ -13,8 +13,10 @@ module ActiveRecord
       alias_method_chain :_type_cast, :time_of_day
     end
   end
-  module Type
-    class Time < Value # :nodoc:
+end
+module Activerecord
+  module Time
+    module TypeCast
       private
       def cast_value(value)
         return value.time_of_day if value.is_a?(::DateTime) || value.is_a?(::Time)
@@ -25,3 +27,4 @@ module ActiveRecord
     end
   end
 end
+ActiveRecord::Type::Time.prepend Activerecord::Time::TypeCast

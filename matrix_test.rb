@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby -w
 
-system 'rubocop --auto-correct'
+system('rubocop --auto-correct') || exit(1)
 
 update_gemfiles = ARGV.delete('--update')
 

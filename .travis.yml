@@ -26,5 +26,7 @@ matrix:
       gemfile: gemfiles/ar42.gemfile
     - rvm: ruby-head
       gemfile: gemfiles/ar41.gemfile
+    - rvm: ruby-head
+      gemfile: gemfiles/ar32.gemfile
     - rvm: ruby-2.1.9
       gemfile: gemfiles/ar50.gemfile
