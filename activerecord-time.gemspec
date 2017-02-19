@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.summary = %q{A handler for storing TimeOfDay objects in ActiveRecord objects as sql time values.}
   gem.homepage = 'https://github.com/donv/activerecord-time'
   gem.license = 'MIT'
-  gem.required_ruby_version = '>= 1.9.3'
+  gem.required_ruby_version = '>= 2.1'
 
   gem.files = `git ls-files`.split($/)
   gem.executables = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }

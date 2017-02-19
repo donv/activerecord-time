@@ -13,6 +13,9 @@ AllCops:
 Rails:
   Enabled: true
 
+Security/YAMLLoad:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 

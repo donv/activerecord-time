@@ -4,8 +4,9 @@ jdk:
   - oraclejdk8
 before_install: gem query -i -n ^bundler$ >/dev/null || gem install bundler
 rvm:
+  - ruby-2.4.0
+  - jruby-9.1.7.0
   - ruby-2.3.3
-  - jruby-9.1.6.0
   - ruby-2.2.6
   - ruby-2.1.9
   - ruby-head
@@ -27,6 +28,10 @@ matrix:
     - rvm: ruby-head
       gemfile: gemfiles/ar41.gemfile
     - rvm: ruby-head
+      gemfile: gemfiles/ar32.gemfile
+    - rvm: ruby-2.4.0
+      gemfile: gemfiles/ar41.gemfile
+    - rvm: ruby-2.4.0
       gemfile: gemfiles/ar32.gemfile
     - rvm: ruby-2.1.9
       gemfile: gemfiles/ar50.gemfile

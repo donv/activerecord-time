@@ -2,6 +2,8 @@ require 'yaml'
 
 # rubocop: disable Rails/TimeZone, Rails/Date
 class TimeOfDay
+  include Comparable
+
   attr_accessor :hour # 0 - 23
   attr_accessor :minute # 0 - 59
   attr_accessor :second # 0 - 59
@@ -55,32 +57,15 @@ class TimeOfDay
   end
 
   def <=>(other)
-    [@hour, @minute, @second] <=> [other.hour, other.minute, other.second]
-  end
+    other_tod = if other.is_a?(TimeOfDay)
+                  other
+                elsif other.respond_to?(:time_of_day)
+                  other.time_of_day
+                else
+                  other
+                end
 
-  def ==(other)
-    return false unless other.is_a? TimeOfDay
-    (self <=> other) == 0
-  end
-
-  def <(other)
-    return false unless other.is_a? TimeOfDay
-    (self <=> other) < 0
-  end
-
-  def <=(other)
-    return false unless other.is_a? TimeOfDay
-    (self <=> other) <= 0
-  end
-
-  def >(other)
-    return false unless other.is_a? TimeOfDay
-    (self <=> other) > 0
-  end
-
-  def >=(other)
-    return false unless other.is_a? TimeOfDay
-    (self <=> other) >= 0
+    to_a <=> [other_tod.hour, other_tod.minute, other_tod.second]
   end
 
   def strftime(format)
@@ -89,10 +74,16 @@ class TimeOfDay
 
   def to_s(with_seconds = true)
     if with_seconds
-      '%02d:%02d:%02d' % [@hour, @minute, @second]
+      '%02d:%02d:%02d' % to_a
     else
       '%02d:%02d' % [@hour, @minute]
     end
+  rescue
+    "#{@hour.inspect}:#{@minute.inspect}:#{@second.inspect}"
+  end
+
+  def to_a
+    [@hour, @minute, @second]
   end
 
   def to_json(*)
