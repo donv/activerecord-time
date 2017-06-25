@@ -100,7 +100,8 @@ end
 class Date
   def at(time_of_day)
     time_of_day = TimeOfDay.parse(time_of_day) if time_of_day.is_a?(String)
-    Time.local(year, month, day, time_of_day.hour, time_of_day.minute, time_of_day.second)
+    zone = Time.zone || Time
+    zone.local(year, month, day, time_of_day.hour, time_of_day.minute, time_of_day.second)
   end
 end
 
