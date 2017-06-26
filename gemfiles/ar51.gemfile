@@ -1,0 +1,4 @@
+RAILS_5 = true
+eval File.read("#{File.dirname __FILE__}/common.gemfile")
+
+gem 'activerecord', '~>5.1.1'

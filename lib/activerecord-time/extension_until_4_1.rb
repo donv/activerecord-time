@@ -27,7 +27,7 @@ module Activerecord
   module Time
     module DummyTime
       def klass
-        return TimeOfDay if :time == type
+        return TimeOfDay if type == :time
         super
       end
 

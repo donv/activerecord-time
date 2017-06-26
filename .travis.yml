@@ -4,14 +4,15 @@ jdk:
   - oraclejdk8
 before_install: gem query -i -n ^bundler$ >/dev/null || gem install bundler
 rvm:
-  - ruby-2.4.0
-  - jruby-9.1.7.0
-  - ruby-2.3.3
-  - ruby-2.2.6
+  - ruby-2.4.1
+  - jruby-9.1.12.0
+  - ruby-2.3.4
+  - ruby-2.2.7
   - ruby-2.1.9
   - ruby-head
   - jruby-head
 gemfile:
+  - gemfiles/ar51.gemfile
   - gemfiles/ar50.gemfile
   - gemfiles/ar42.gemfile
   - gemfiles/ar41.gemfile
@@ -29,9 +30,13 @@ matrix:
       gemfile: gemfiles/ar41.gemfile
     - rvm: ruby-head
       gemfile: gemfiles/ar32.gemfile
-    - rvm: ruby-2.4.0
+    - rvm: ruby-2.4.1
       gemfile: gemfiles/ar41.gemfile
-    - rvm: ruby-2.4.0
+    - rvm: ruby-2.4.1
+      gemfile: gemfiles/ar40.gemfile
+    - rvm: ruby-2.4.1
       gemfile: gemfiles/ar32.gemfile
+    - rvm: ruby-2.1.9
+      gemfile: gemfiles/ar51.gemfile
     - rvm: ruby-2.1.9
       gemfile: gemfiles/ar50.gemfile

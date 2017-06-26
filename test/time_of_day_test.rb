@@ -89,7 +89,7 @@ class TimeOfDayTest < Minitest::Test
   end
 
   def test_column_type
-    assert_equal [:integer, :string, :time, :binary], Event.columns.map(&:type)
+    assert_equal %i[integer string time binary], Event.columns.map(&:type)
   end
 
   def test_activerecord

@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 platform :jruby do
   if defined?(RAILS_5)
+    git_source(:github) do |repo_name|
+      repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
+      "https://github.com/#{repo_name}.git"
+    end
     gem 'activerecord-jdbc-adapter', github: 'jruby/activerecord-jdbc-adapter', branch: 'rails-5'
     gem 'activerecord-jdbcpostgresql-adapter', github: 'jruby/activerecord-jdbc-adapter', branch: 'rails-5'
     gem 'activerecord-jdbcsqlite3-adapter', github: 'jruby/activerecord-jdbc-adapter', branch: 'rails-5'

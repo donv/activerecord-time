@@ -13,6 +13,9 @@ AllCops:
 Rails:
   Enabled: true
 
+Rails/ApplicationRecord:
+  Enabled: false
+
 Security/YAMLLoad:
   Enabled: false
 
@@ -24,6 +27,7 @@ Style/Encoding:
 
 Style/FileName:
   Exclude:
+    - 'activerecord-time.gemspec'
     - 'lib/activerecord-time.rb'
 
 Style/FormatString:
