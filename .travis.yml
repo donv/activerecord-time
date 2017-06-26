@@ -14,8 +14,6 @@ gemfile:
   - gemfiles/ar51.gemfile
   - gemfiles/ar50.gemfile
   - gemfiles/ar42.gemfile
-  - gemfiles/ar41.gemfile
-  - gemfiles/ar40.gemfile
   - gemfiles/ar32.gemfile
 env:
   - JRUBY_OPTS="--dev --debug" ADAPTER="postgresql"
@@ -26,16 +24,6 @@ matrix:
     - rvm: ruby-head
       gemfile: gemfiles/ar42.gemfile
     - rvm: ruby-head
-      gemfile: gemfiles/ar41.gemfile
-    - rvm: ruby-head
       gemfile: gemfiles/ar32.gemfile
     - rvm: ruby-2.4.1
-      gemfile: gemfiles/ar41.gemfile
-    - rvm: ruby-2.4.1
-      gemfile: gemfiles/ar40.gemfile
-    - rvm: ruby-2.4.1
       gemfile: gemfiles/ar32.gemfile
-    - rvm: ruby-2.1.9
-      gemfile: gemfiles/ar51.gemfile
-    - rvm: ruby-2.1.9
-      gemfile: gemfiles/ar50.gemfile
