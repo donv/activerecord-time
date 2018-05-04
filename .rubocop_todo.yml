@@ -28,13 +28,6 @@ Metrics/CyclomaticComplexity:
 Metrics/MethodLength:
   Max: 16
 
-# Offense count: 3
-# Configuration parameters: MinNameLength, AllowNamesEndingInNumbers, AllowedNames, ForbiddenNames.
-# AllowedNames: io, id, to, by, on, in, at
-Naming/UncommunicativeMethodParamName:
-  Exclude:
-    - 'lib/activerecord-time/extension_until_4_1.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Rails/ActiveRecordAliases:

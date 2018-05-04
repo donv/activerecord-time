@@ -54,13 +54,14 @@ ActiveRecord::ConnectionAdapters::Column.prepend Activerecord::Time::DummyTime
 module Arel
   module Visitors
     class Visitor
+      # TODO(uwe): Simplify when we stop support for AR < 5
       if Gem::Version.new(Arel::VERSION) >= Gem::Version.new('5.0.0')
-        def visit_TimeOfDay(o, _a) # rubocop: disable Naming/MethodName
-          "'#{o.to_s(:db)}'"
+        def visit_TimeOfDay(object, _collector) # rubocop: disable Naming/MethodName
+          "'#{object.to_s(:db)}'"
         end
       else
-        def visit_TimeOfDay(o) # rubocop: disable Naming/MethodName
-          "'#{o.to_s(:db)}'"
+        def visit_TimeOfDay(object) # rubocop: disable Naming/MethodName
+          "'#{object.to_s(:db)}'"
         end
       end
     end
