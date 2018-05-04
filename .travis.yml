@@ -21,7 +21,7 @@ env:
   - JRUBY_OPTS="--dev --debug" ADAPTER="derby"
   - JRUBY_OPTS="--dev --debug" ADAPTER="sqlite3"
 matrix:
-  allowed_failures:
+  allow_failures:
     - rvm: ruby-head
       gemfile: gemfiles/ar42.gemfile
     - rvm: jruby-9.1.17.0
