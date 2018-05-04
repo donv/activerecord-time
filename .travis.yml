@@ -9,8 +9,6 @@ rvm:
   - jruby-9.1.17.0
   - ruby-2.3.7
   - ruby-2.2.10
-  - ruby-head
-  - jruby-head
 gemfile:
   - gemfiles/ar52.gemfile
   - gemfiles/ar51.gemfile
@@ -22,8 +20,6 @@ env:
   - JRUBY_OPTS="--dev --debug" ADAPTER="sqlite3"
 matrix:
   allow_failures:
-    - rvm: ruby-head
-      gemfile: gemfiles/ar42.gemfile
     - rvm: jruby-9.1.17.0
       gemfile: gemfiles/ar52.gemfile
     - rvm: jruby-9.1.17.0
