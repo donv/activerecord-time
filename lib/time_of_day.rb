@@ -11,7 +11,9 @@ class TimeOfDay
     raise "Invalid hour: #{hour}" unless hour >= 0 && hour <= 23
     raise "Invalid minute: #{minute}" unless minute >= 0 && minute <= 59
     raise "Invalid second: #{second}" unless second >= 0 && second <= 59
-    @hour, @minute, @second = hour, minute, second
+    @hour = hour
+    @minute = minute
+    @second = second
   end
 
   def init_with(coder)

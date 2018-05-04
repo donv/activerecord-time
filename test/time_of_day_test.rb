@@ -1,6 +1,9 @@
 require File.expand_path('test_helper', File.dirname(__FILE__))
 
-class Event < ActiveRecord::Base
+class ApplicationRecord < ActiveRecord::Base
+  self.abstract_class = true
+end
+class Event < ApplicationRecord
 end
 
 # TODO(uwe): Remove when we stop testing ActiveRecord 4.0

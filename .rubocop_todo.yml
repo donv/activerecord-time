@@ -34,12 +34,6 @@ Rails/ActiveRecordAliases:
   Exclude:
     - 'test/time_of_day_test.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Rails/ApplicationRecord:
-  Exclude:
-    - 'test/time_of_day_test.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 Security/YAMLLoad:
@@ -47,15 +41,3 @@ Security/YAMLLoad:
     - 'matrix_test.rb'
     - 'test/test_helper.rb'
     - 'test/time_of_day_test.rb'
-
-# Offense count: 3
-Style/CommentedKeyword:
-  Exclude:
-    - 'lib/activerecord-time/extension_until_4_1.rb'
-    - 'lib/time_of_day/core_ext.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/ParallelAssignment:
-  Exclude:
-    - 'lib/time_of_day.rb'

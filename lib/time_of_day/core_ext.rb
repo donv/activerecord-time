@@ -15,7 +15,8 @@ class Date
 end
 
 module Kernel
-  def TimeOfDay(string_or_int, *ints) # rubocop: disable Naming/MethodName
+  # rubocop: disable Naming/MethodName
+  def TimeOfDay(string_or_int, *ints)
     if string_or_int.is_a? String
       unless ints.empty?
         raise(ArgumentError, 'TimeOfDay() takes a string or multiple integers as arguments')
@@ -25,6 +26,7 @@ module Kernel
       TimeOfDay.new(string_or_int, *ints)
     end
   end
+  # rubocop: enable Naming/MethodName
 end
 
 YAML.add_tag 'tag:yaml.org,2002:time', TimeOfDay
