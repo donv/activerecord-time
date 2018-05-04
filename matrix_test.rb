@@ -5,7 +5,7 @@ system('rubocop --auto-correct') || exit(1)
 update_gemfiles = ARGV.delete('--update')
 
 require 'yaml'
-travis = YAML.load(File.read('.travis.yml'))
+travis = YAML.safe_load(File.read('.travis.yml'))
 
 def run_script(ruby, env, gemfile)
   env.scan(/\b(?<key>[A-Z_]+)="(?<value>.+?)"/) do |key, value|
@@ -33,6 +33,8 @@ def use_gemfile(ruby, gemfile, update_gemfiles)
   puts '$' * 80
 end
 
+bad_variants = (travis['matrix']['exclude'].to_a + travis['matrix']['allowed_failures'].to_a)
+
 travis['rvm'].each do |ruby|
   next if ruby =~ /head/ # ruby-install does not support HEAD installation
   puts '#' * 80
@@ -42,13 +44,16 @@ travis['rvm'].each do |ruby|
   bundler_gem_check_cmd = "chruby-exec #{ruby} -- gem query -i -n bundler >/dev/null"
   system "#{bundler_gem_check_cmd} || chruby-exec #{ruby} -- gem install bundler" || exit(1)
   travis['gemfile'].each do |gemfile|
-    if (travis['matrix']['exclude'].to_a + travis['matrix']['allowed_failures'].to_a)
-       .any? { |f| f['rvm'] == ruby && f['gemfile'] == gemfile }
-      puts 'Skipping known failure.'
-      next
-    end
     use_gemfile(ruby, gemfile, update_gemfiles) do
       travis['env'].each do |env|
+        bad_variant = bad_variants.any? do |f|
+          (f['rvm'].nil? || f['rvm'] == ruby) &&
+              (f['gemfile'].nil? || f['gemfile'] == gemfile) && (f['env'].nil? || f['env'] == env)
+        end
+        if bad_variant
+          puts 'Skipping known failure.'
+          next
+        end
         run_script(ruby, env, gemfile)
       end
     end

@@ -1,4 +1,4 @@
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'activerecord-time/version'
 
@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.test_files = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = %w[lib]
 
-  gem.add_runtime_dependency 'activerecord', '>=3.2.21', '<5.2'
+  gem.add_runtime_dependency 'activerecord', '>=4.2', '<6'
 
   if defined? JRUBY_VERSION
     gem.add_development_dependency 'activerecord-jdbcpostgresql-adapter'

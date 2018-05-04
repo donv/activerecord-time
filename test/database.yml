@@ -18,3 +18,11 @@ mysql:
   :username: rails
   :password:
   :database: activerecord-time_test
+derby:
+  :adapter: derby
+  :driver: org.apache.derby.jdbc.EmbeddedDriver
+  :url: jdbc:derby:activerecord-time_test-derby;user=derby;create=true",
+  :username: derby
+  :pool: 50
+  :transaction_isolation: false
+  :database: activerecord-time_test-derby

@@ -1,3 +1,5 @@
+SKIP_JRUBY = true
+
 eval File.read("#{File.dirname __FILE__}/common.gemfile")
 
-gem 'activerecord', '~>3.2.22'
+gem 'activerecord', '~>5.2.0'

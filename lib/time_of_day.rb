@@ -1,6 +1,5 @@
 require 'yaml'
 
-# rubocop: disable Rails/TimeZone, Rails/Date
 class TimeOfDay
   include Comparable
 
@@ -26,27 +25,34 @@ class TimeOfDay
   end
 
   def self.now
-    Time.now.time_of_day
+    Time.now.time_of_day # rubocop: disable Rails/TimeZone
   end
 
   def self.parse(string)
     return nil if string.blank?
-    new(*parse_parts(string))
+    tod = _parse(string)
+    raise ArgumentError, "Illegal time format: '#{string}'" unless tod
+    tod
+  end
+
+  def self._parse(string)
+    parts = parse_parts(string)
+    return unless parts
+    new(*parts)
   end
 
   def self.parse_parts(string)
-    string = string.strip
-    raise "Illegal time format: '#{string}'" unless string =~ /^(\d{1,2}):?(\d{2})?(?::(\d{1,2}))?$/
-    [Regexp.last_match(1).to_i, Regexp.last_match(2).to_i, Regexp.last_match(3).to_i]
+    return unless /^(?<hours>\d{1,2}):?(?<minutes>\d{2})?(?::(?<seconds>\d{1,2}))?$/ =~ string.strip
+    [hours.to_i, minutes.to_i, seconds.to_i]
   end
 
   def on(date)
-    Time.local(date.year, date.month, date.day, hour, minute, second)
+    Time.local(date.year, date.month, date.day, hour, minute, second) # rubocop: disable Rails/TimeZone
   end
 
   def +(other)
     raise "Illegal argument: #{other.inspect}" unless other.is_a? Numeric
-    t = Time.local(0, 1, 1, hour, minute, second)
+    t = Time.local(0, 1, 1, hour, minute, second) # rubocop: disable Rails/TimeZone
     t += other
     self.class.new(t.hour, t.min, t.sec)
   end
@@ -69,7 +75,7 @@ class TimeOfDay
   end
 
   def strftime(format)
-    on(Date.today).strftime(format)
+    on(Date.today).strftime(format) # rubocop: disable Rails/Date
   end
 
   def to_s(with_seconds = true)
@@ -90,30 +96,3 @@ class TimeOfDay
     %("#{self}")
   end
 end
-
-class Time
-  def time_of_day
-    TimeOfDay.new(hour, min, sec)
-  end
-end
-
-class Date
-  def at(time_of_day)
-    time_of_day = TimeOfDay.parse(time_of_day) if time_of_day.is_a?(String)
-    zone = Time.zone || Time
-    zone.local(year, month, day, time_of_day.hour, time_of_day.minute, time_of_day.second)
-  end
-end
-
-module Kernel
-  def TimeOfDay(string_or_int, *ints) # rubocop: disable Style/MethodName
-    if string_or_int.is_a? String
-      raise(ArgumentError, 'TimeOfDay() takes a string or multiple integers as arguments') unless ints.empty?
-      TimeOfDay.parse(string_or_int)
-    else
-      TimeOfDay.new(string_or_int, *ints)
-    end
-  end
-end
-
-YAML.add_tag 'tag:yaml.org,2002:time', TimeOfDay

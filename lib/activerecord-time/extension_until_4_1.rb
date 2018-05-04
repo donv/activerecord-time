@@ -55,11 +55,11 @@ module Arel
   module Visitors
     class Visitor
       if Gem::Version.new(Arel::VERSION) >= Gem::Version.new('5.0.0')
-        def visit_TimeOfDay(o, _a) # rubocop: disable Style/MethodName
+        def visit_TimeOfDay(o, _a) # rubocop: disable Naming/MethodName
           "'#{o.to_s(:db)}'"
         end
       else
-        def visit_TimeOfDay(o) # rubocop: disable Style/MethodName
+        def visit_TimeOfDay(o) # rubocop: disable Naming/MethodName
           "'#{o.to_s(:db)}'"
         end
       end

@@ -1,23 +1,59 @@
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-  TargetRubyVersion: 2.1
+  TargetRubyVersion: 2.2
   DisplayCopNames: true
   DisplayStyleGuide: true
   Include:
     - '**/Gemfile'
     - '**/Rakefile'
+
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+  IndentationWidth: 4
+
+Layout/FirstParameterIndentation:
+  EnforcedStyle: consistent
+  IndentationWidth: 4
+
+Layout/IndentArray:
+  EnforcedStyle: consistent
+
+Layout/IndentHash:
+  EnforcedStyle: consistent
+
+Layout/IndentAssignment:
+  IndentationWidth: 4
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+  IndentationWidth: 4
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+  IndentationWidth: 4
+
+Metrics/BlockLength:
   Exclude:
-    - 'gemfiles/vendor/**/*'
+    - '*.gemspec'
+
+Metrics/LineLength:
+  Max: 107
+  AllowHeredoc: true
+  AllowURI: true
+  IgnoreCopDirectives: true
+
+Naming/FileName:
+  Exclude:
+    - 'activerecord-time.gemspec'
+    - 'lib/activerecord-time.rb'
 
 Rails:
   Enabled: true
 
-Rails/ApplicationRecord:
-  Enabled: false
-
-Security/YAMLLoad:
-  Enabled: false
+Security/Eval:
+  Exclude:
+    - 'gemfiles/*.gemfile'
 
 Style/Documentation:
   Enabled: false
@@ -25,19 +61,20 @@ Style/Documentation:
 Style/Encoding:
   Enabled: true
 
-Style/FileName:
-  Exclude:
-    - 'activerecord-time.gemspec'
-    - 'lib/activerecord-time.rb'
-
 Style/FormatString:
   EnforcedStyle: percent
 
 Style/NumericPredicate:
   Enabled: false
 
-Style/ParallelAssignment:
-  Enabled: false
+Style/RescueStandardError:
+  EnforcedStyle: implicit
 
 Style/SafeNavigation:
   ConvertCodeThatCanStartToReturnNil: true
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma

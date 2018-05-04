@@ -26,7 +26,7 @@ module ActiveRecord
         return value.time_of_day if value.is_a?(::DateTime) || value.is_a?(::Time)
         return value unless value.is_a?(::String)
         return if value.empty?
-        TimeOfDay.parse value
+        TimeOfDay._parse(value)
       end
     end
   end
