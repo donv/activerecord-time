@@ -33,7 +33,7 @@ def use_gemfile(ruby, gemfile, update_gemfiles)
   puts '$' * 80
 end
 
-bad_variants = (travis['matrix']['exclude'].to_a + travis['matrix']['allowed_failures'].to_a)
+bad_variants = (travis['matrix']['exclude'].to_a + travis['matrix']['allow_failures'].to_a)
 
 travis['rvm'].each do |ruby|
   next if ruby =~ /head/ # ruby-install does not support HEAD installation

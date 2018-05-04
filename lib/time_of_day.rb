@@ -44,6 +44,7 @@ class TimeOfDay
   end
 
   def self.parse_parts(string)
+    return nil if string.blank?
     return unless /^(?<hours>\d{1,2}):?(?<minutes>\d{2})?(?::(?<seconds>\d{1,2}))?$/ =~ string.strip
     [hours.to_i, minutes.to_i, seconds.to_i]
   end
@@ -65,6 +66,7 @@ class TimeOfDay
   end
 
   def <=>(other)
+    return -1 unless other
     other_tod = if other.is_a?(TimeOfDay)
                   other
                 elsif other.respond_to?(:time_of_day)
