@@ -32,6 +32,7 @@ matrix:
       gemfile: gemfiles/ar50.gemfile
     - rvm: jruby-9.1.17.0
       gemfile: gemfiles/ar42.gemfile
+  exclude:
     - rvm: ruby-2.4.4
       env: JRUBY_OPTS="--dev --debug" ADAPTER="derby"
     - rvm: ruby-2.3.7
