@@ -4,7 +4,7 @@ jdk:
   - oraclejdk8
 before_install: gem install bundler # TODO(uwe): https://github.com/travis-ci/travis-ci/issues/9383
 rvm:
-#  - ruby-2.5.1
+  - ruby-2.5.1
   - ruby-2.4.4
   - jruby-9.1.17.0
   - ruby-2.3.7
@@ -29,6 +29,8 @@ matrix:
     - rvm: jruby-9.1.17.0
       gemfile: gemfiles/ar42.gemfile
   exclude:
+    - rvm: ruby-2.5.1
+      env: JRUBY_OPTS="--dev --debug" ADAPTER="derby"
     - rvm: ruby-2.4.4
       env: JRUBY_OPTS="--dev --debug" ADAPTER="derby"
     - rvm: ruby-2.3.7
