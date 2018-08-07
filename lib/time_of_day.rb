@@ -49,6 +49,14 @@ class TimeOfDay
     [hours.to_i, minutes.to_i, seconds.to_i]
   end
 
+  def acts_like_time?
+    true
+  end
+
+  def in_time_zone(*)
+    self
+  end
+
   def on(date)
     Time.local(date.year, date.month, date.day, hour, minute, second) # rubocop: disable Rails/TimeZone
   end
