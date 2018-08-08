@@ -6,6 +6,12 @@ class Time
   end
 end
 
+class ActiveSupport::TimeWithZone
+  def time_of_day
+    TimeOfDay.new(hour, min, sec)
+  end
+end
+
 class Date
   def at(time_of_day)
     time_of_day = TimeOfDay.parse(time_of_day) if time_of_day.is_a?(String)
