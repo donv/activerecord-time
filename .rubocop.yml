@@ -1,7 +1,10 @@
 inherit_from: .rubocop_todo.yml
+require:
+  - rubocop-performance
+  - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.2
+  TargetRubyVersion: 2.4
   DisplayCopNames: true
   DisplayStyleGuide: true
   Include:
@@ -12,14 +15,14 @@ Layout/AlignParameters:
   EnforcedStyle: with_fixed_indentation
   IndentationWidth: 4
 
-Layout/FirstParameterIndentation:
+Layout/IndentFirstArgument:
   EnforcedStyle: consistent
   IndentationWidth: 4
 
-Layout/IndentArray:
+Layout/IndentFirstArrayElement:
   EnforcedStyle: consistent
 
-Layout/IndentHash:
+Layout/IndentFirstHashElement:
   EnforcedStyle: consistent
 
 Layout/IndentAssignment:

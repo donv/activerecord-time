@@ -4,36 +4,19 @@ jdk:
   - oraclejdk8
 before_install: gem install bundler # TODO(uwe): https://github.com/travis-ci/travis-ci/issues/9383
 rvm:
-  - ruby-2.5.1
-  - ruby-2.4.4
-  - jruby-9.1.17.0
-  - ruby-2.3.7
-  - ruby-2.2.10
+  - ruby-2.6.3
+  - ruby-2.5.7
+  - ruby-2.4.9
+  - jruby-9.2.8.0
 gemfile:
   - gemfiles/ar52.gemfile
   - gemfiles/ar51.gemfile
-  - gemfiles/ar50.gemfile
-  - gemfiles/ar42.gemfile
 env:
   - JRUBY_OPTS="--dev --debug" ADAPTER="postgresql"
-  - JRUBY_OPTS="--dev --debug" ADAPTER="derby"
   - JRUBY_OPTS="--dev --debug" ADAPTER="sqlite3"
 matrix:
   allow_failures:
-    - rvm: jruby-9.1.17.0
+    - rvm: jruby-9.2.8.0
       gemfile: gemfiles/ar52.gemfile
-    - rvm: jruby-9.1.17.0
+    - rvm: jruby-9.2.8.0
       gemfile: gemfiles/ar51.gemfile
-    - rvm: jruby-9.1.17.0
-      gemfile: gemfiles/ar50.gemfile
-    - rvm: jruby-9.1.17.0
-      gemfile: gemfiles/ar42.gemfile
-  exclude:
-    - rvm: ruby-2.5.1
-      env: JRUBY_OPTS="--dev --debug" ADAPTER="derby"
-    - rvm: ruby-2.4.4
-      env: JRUBY_OPTS="--dev --debug" ADAPTER="derby"
-    - rvm: ruby-2.3.7
-      env: JRUBY_OPTS="--dev --debug" ADAPTER="derby"
-    - rvm: ruby-2.2.10
-      env: JRUBY_OPTS="--dev --debug" ADAPTER="derby"

@@ -1,6 +1,3 @@
-sqlite:
-  :adapter: sqlite
-  :dbfile: plugin.sqlite.db
 sqlite3:
   :adapter: sqlite3
   :dbfile: ":memory:"
@@ -12,17 +9,3 @@ postgresql:
   :password:
   :database: activerecord-time_test
   :min_messages: ERROR
-mysql:
-  :adapter: mysql
-  :host: localhost
-  :username: rails
-  :password:
-  :database: activerecord-time_test
-derby:
-  :adapter: derby
-  :driver: org.apache.derby.jdbc.EmbeddedDriver
-  :url: jdbc:derby:activerecord-time_test-derby;user=derby;create=true",
-  :username: derby
-  :pool: 50
-  :transaction_isolation: false
-  :database: activerecord-time_test-derby
