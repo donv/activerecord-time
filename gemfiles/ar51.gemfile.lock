@@ -67,7 +67,7 @@ DEPENDENCIES
   activerecord-jdbcsqlite3-adapter
   minitest-reporters
   pg (< 1)
-  rake (~> 12.3)
+  rake
   simplecov
   sqlite3
 
