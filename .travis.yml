@@ -5,7 +5,7 @@ services:
 jdk:
   - openjdk8
 rvm:
-  - ruby-2.6.3
+  - ruby-2.6.5
   - ruby-2.5.7
   - ruby-2.4.9
   - jruby-9.2.8.0
