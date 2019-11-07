@@ -5,7 +5,7 @@ services:
   - postgresql
 jdk:
   - openjdk8
-rvm:
+ruby:
   - ruby-2.6
   - ruby-2.5
   - ruby-2.4
