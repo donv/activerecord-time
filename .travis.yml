@@ -5,14 +5,20 @@ services:
   - postgresql
 jdk:
   - openjdk8
-ruby:
+rvm:
   - ruby-2.6
   - ruby-2.5
   - ruby-2.4
-  - jruby
+  - jruby-9
 gemfile:
   - gemfiles/ar52.gemfile
   - gemfiles/ar51.gemfile
 env:
   - JRUBY_OPTS="--dev --debug" ADAPTER="postgresql"
   - JRUBY_OPTS="--dev --debug" ADAPTER="sqlite3"
+matrix:
+  allow_failures:
+    - rvm: jruby
+      env: JRUBY_OPTS="--dev --debug" ADAPTER="sqlite3"
+    - rvm: jruby
+      env: JRUBY_OPTS="--dev --debug" ADAPTER="sqlite3"
