@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby -w
+# frozen_string_literal: true
 
 system('rubocop --auto-correct') || exit(1)
 
@@ -16,6 +17,7 @@ def run_script(ruby, env, gemfile)
   puts
   system("chruby-exec #{ruby} -- bundle exec rake") || exit(1)
   puts '*' * 80
+  puts
 end
 
 def use_gemfile(ruby, gemfile, update_gemfiles)
@@ -34,17 +36,18 @@ def use_gemfile(ruby, gemfile, update_gemfiles)
   puts '$' * 80
 end
 
-bad_variants = (travis['matrix']['exclude'].to_a + travis['matrix']['allow_failures'].to_a)
+bad_variants = (travis.dig('matrix', 'exclude').to_a + travis.dig('matrix', 'allow_failures').to_a)
 
 travis['rvm'].each do |ruby|
-  next if ruby =~ /head/ # ruby-install does not support HEAD installation
+  next if /head/.match?(ruby) # ruby-install does not support HEAD installation
+
   puts '#' * 80
   puts "Testing #{ruby}"
   puts
   system "ruby-install --no-reinstall #{ruby}" || exit(1)
   bundler_version = '1.17.2'
   gem_cmd = "chruby-exec #{ruby} -- gem"
-  system "#{gem_cmd} uninstall bundler --all --version '!=#{bundler_version}'"
+  system "#{gem_cmd} uninstall --force --all --version '!=#{bundler_version}' bundler"
   bundler_gem_check_cmd = "#{gem_cmd} query -i -n '^bundler$' -v '#{bundler_version}' >/dev/null"
   bundler_install_cmd = "#{gem_cmd} install bundler -v '#{bundler_version}'"
   system "#{bundler_gem_check_cmd} || #{bundler_install_cmd}" || exit(1)

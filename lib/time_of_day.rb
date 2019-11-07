@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'yaml'
 
 class TimeOfDay
@@ -11,6 +13,7 @@ class TimeOfDay
     raise "Invalid hour: #{hour}" unless hour >= 0 && hour <= 23
     raise "Invalid minute: #{minute}" unless minute >= 0 && minute <= 59
     raise "Invalid second: #{second}" unless second >= 0 && second <= 59
+
     @hour = hour
     @minute = minute
     @second = second
@@ -32,20 +35,24 @@ class TimeOfDay
 
   def self.parse(string)
     return nil if string.blank?
+
     tod = _parse(string)
     raise ArgumentError, "Illegal time format: '#{string}'" unless tod
+
     tod
   end
 
   def self._parse(string)
     parts = parse_parts(string)
     return unless parts
+
     new(*parts)
   end
 
   def self.parse_parts(string)
     return nil if string.blank?
     return unless /^(?<hours>\d{1,2}):?(?<minutes>\d{2})?(?::(?<seconds>\d{1,2}))?$/ =~ string.strip
+
     [hours.to_i, minutes.to_i, seconds.to_i]
   end
 
@@ -67,6 +74,7 @@ class TimeOfDay
 
   def +(other)
     raise "Illegal argument: #{other.inspect}" unless other.is_a? Numeric
+
     t = Time.local(0, 1, 1, hour, minute, second) # rubocop: disable Rails/TimeZone
     t += other
     self.class.new(t.hour, t.min, t.sec)
@@ -74,11 +82,13 @@ class TimeOfDay
 
   def -(other)
     raise "Illegal argument: #{other.inspect}" unless other.is_a? Numeric
+
     self.+(-other)
   end
 
   def <=>(other)
     return -1 unless other
+
     other_tod = if other.is_a?(TimeOfDay)
                   other
                 elsif other.respond_to?(:time_of_day)
@@ -91,7 +101,7 @@ class TimeOfDay
   end
 
   def strftime(format)
-    on(Date.today).strftime(format) # rubocop: disable Rails/Date
+    on(Date.today).strftime(format)
   end
 
   def to_s(with_seconds = true)

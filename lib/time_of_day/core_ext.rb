@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'time_of_day'
 
 class Time
@@ -27,6 +29,7 @@ module Kernel
       unless ints.empty?
         raise(ArgumentError, 'TimeOfDay() takes a string or multiple integers as arguments')
       end
+
       TimeOfDay.parse(string_or_int)
     else
       TimeOfDay.new(string_or_int, *ints)

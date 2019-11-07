@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path('test_helper', File.dirname(__FILE__))
 
 class ApplicationRecord < ActiveRecord::Base
@@ -5,10 +7,6 @@ class ApplicationRecord < ActiveRecord::Base
 end
 class Event < ApplicationRecord
 end
-
-# TODO(uwe): Remove when we stop testing ActiveRecord 4.0
-Minitest::Test = Minitest::Unit unless defined? Minitest::Test
-# ODOT
 
 class TimeOfDayTest < Minitest::Test
   def setup
@@ -58,12 +56,12 @@ class TimeOfDayTest < Minitest::Test
   end
 
   def test_parse_immutable_string
-    tod = TimeOfDay.parse('10:01'.freeze)
+    tod = TimeOfDay.parse('10:01')
     assert_equal 10, tod.hour
     assert_equal 1, tod.minute
     assert_equal 0, tod.second
 
-    tod = TimeOfDay.parse('23:59:59'.freeze)
+    tod = TimeOfDay.parse('23:59:59')
     assert_equal 23, tod.hour
     assert_equal 59, tod.minute
     assert_equal 59, tod.second
@@ -107,14 +105,7 @@ class TimeOfDayTest < Minitest::Test
     assert_nil Event.where('start_at < ?', @twelve_o_clock).first
     assert_nil Event.where('start_at > ?', @twelve_o_clock).first
 
-    # TODO(uwe): Simplify when we stop supporting ActiveRecord 3
-    if ActiveRecord::VERSION::MAJOR >= 4
-      t.update! start_at: TimeOfDay.new(13)
-    else
-      t.update_attributes! start_at: TimeOfDay.new(13)
-    end
-    # ODOT
-
+    t.update! start_at: TimeOfDay.new(13)
     t.destroy
   end
 
@@ -124,13 +115,7 @@ class TimeOfDayTest < Minitest::Test
     e = Event.where(content: text).first
     assert_equal text, e.content
 
-    # TODO(uwe): Simplify when we stop supporting ActiveRecord 3
-    if ActiveRecord::VERSION::MAJOR >= 4
-      e.update! content: 'Other binary content'
-    else
-      e.update_attributes! content: 'Other binary content'
-    end
-    # ODOT
+    e.update! content: 'Other binary content'
   end
 
   def test_on

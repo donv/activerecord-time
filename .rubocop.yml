@@ -10,6 +10,7 @@ AllCops:
   Include:
     - '**/Gemfile'
     - '**/Rakefile'
+    - '**/*.rb'
 
 Layout/AlignParameters:
   EnforcedStyle: with_fixed_indentation
