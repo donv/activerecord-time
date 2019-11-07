@@ -57,6 +57,10 @@ class TimeOfDay
     self
   end
 
+  def to_time
+    on Date.today
+  end
+
   def on(date)
     Time.local(date.year, date.month, date.day, hour, minute, second) # rubocop: disable Rails/TimeZone
   end

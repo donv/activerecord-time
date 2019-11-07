@@ -23,6 +23,7 @@ def use_gemfile(ruby, gemfile, update_gemfiles)
   puts "Testing #{gemfile}"
   puts
   ENV['BUNDLE_GEMFILE'] = gemfile
+  system "chruby-exec #{ruby} -- bundle -v"
   if update_gemfiles
     system "chruby-exec #{ruby} -- bundle update"
   else
@@ -41,8 +42,12 @@ travis['rvm'].each do |ruby|
   puts "Testing #{ruby}"
   puts
   system "ruby-install --no-reinstall #{ruby}" || exit(1)
-  bundler_gem_check_cmd = "chruby-exec #{ruby} -- gem query -i -n bundler >/dev/null"
-  system "#{bundler_gem_check_cmd} || chruby-exec #{ruby} -- gem install bundler" || exit(1)
+  bundler_version = '1.17.2'
+  gem_cmd = "chruby-exec #{ruby} -- gem"
+  system "#{gem_cmd} uninstall bundler --all --version '!=#{bundler_version}'"
+  bundler_gem_check_cmd = "#{gem_cmd} query -i -n '^bundler$' -v '#{bundler_version}' >/dev/null"
+  bundler_install_cmd = "#{gem_cmd} install bundler -v '#{bundler_version}'"
+  system "#{bundler_gem_check_cmd} || #{bundler_install_cmd}" || exit(1)
   travis['gemfile'].each do |gemfile|
     use_gemfile(ruby, gemfile, update_gemfiles) do
       travis['env'].each do |env|

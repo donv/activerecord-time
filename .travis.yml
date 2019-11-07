@@ -6,10 +6,10 @@ before_install: gem install bundler:1.17.2 # TODO(uwe): https://github.com/travi
 jdk:
   - openjdk8
 rvm:
-  - ruby-2.6.5
-  - ruby-2.5.7
-  - ruby-2.4.9
-  - jruby-9.2.8.0
+  - ruby-2.6
+  - ruby-2.5
+  - ruby-2.4
+  - jruby
 gemfile:
   - gemfiles/ar52.gemfile
   - gemfiles/ar51.gemfile
@@ -18,7 +18,7 @@ env:
   - JRUBY_OPTS="--dev --debug" ADAPTER="sqlite3"
 matrix:
   allow_failures:
-    - rvm: jruby-9.2.8.0
+    - rvm: jruby
       gemfile: gemfiles/ar52.gemfile
-    - rvm: jruby-9.2.8.0
+    - rvm: jruby
       gemfile: gemfiles/ar51.gemfile
