@@ -10,7 +10,11 @@ class TimeOfDay
   attr_accessor :second # 0 - 59
 
   def initialize(hour, minute = 0, second = 0)
-    raise "Invalid hour: #{hour}" unless hour >= 0 && hour <= 23
+    if hour == 24
+      raise "Invalid TimeOfDay. #{hour}:#{minute}:#{second} given, but highest allowed value is 24:00:00" unless minute == 0 && second == 0
+    else
+      raise "Invalid hour: #{hour}" unless hour >= 0 && hour <= 23
+    end
     raise "Invalid minute: #{minute}" unless minute >= 0 && minute <= 59
     raise "Invalid second: #{second}" unless second >= 0 && second <= 59
 
