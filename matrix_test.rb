@@ -38,6 +38,12 @@ end
 
 bad_variants = (travis.dig('matrix', 'exclude').to_a + travis.dig('matrix', 'allow_failures').to_a)
 
+travis['env']['global'].each do |env|
+  env.scan(/\b(?<key>[A-Z_]+)="(?<value>.+?)"/) do |key, value|
+    ENV[key] = value
+  end
+end
+
 travis['rvm'].each do |ruby|
   next if /head/.match?(ruby) # ruby-install does not support HEAD installation
 
@@ -53,7 +59,7 @@ travis['rvm'].each do |ruby|
   system "#{bundler_gem_check_cmd} || #{bundler_install_cmd}" || exit(1)
   travis['gemfile'].each do |gemfile|
     use_gemfile(ruby, gemfile, update_gemfiles) do
-      travis['env'].each do |env|
+      travis['env']['matrix'].each do |env|
         bad_variant = bad_variants.any? do |f|
           (f['rvm'].nil? || f['rvm'] == ruby) &&
               (f['gemfile'].nil? || f['gemfile'] == gemfile) && (f['env'].nil? || f['env'] == env)

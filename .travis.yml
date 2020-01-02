@@ -6,11 +6,12 @@ services:
 jdk:
   - openjdk8
 rvm:
+  - ruby-2.7
   - ruby-2.6
   - ruby-2.5
-  - ruby-2.4
   - jruby
 gemfile:
+  - gemfiles/ar60.gemfile
   - gemfiles/ar52.gemfile
   - gemfiles/ar51.gemfile
 env:
