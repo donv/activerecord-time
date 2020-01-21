@@ -114,7 +114,7 @@ class TimeOfDay
 
   # Referring to the same H/M/S makes objects equal.
   def eql?(other)
-    self.hash == other.hash
+    hash == other.hash
   end
 
   def strftime(format)

@@ -207,15 +207,15 @@ class TimeOfDayTest < Minitest::Test
     b = TimeOfDay.new(10, 11, 12)
     assert a.eql?(b)
     assert_equal a.hash, b.hash
-    hashmap = {};
-    hashmap[a] = "foo";
-    hashmap[b] = "bar";
-    assert_equal hashmap, {TimeOfDay.new(10, 11, 12) => "bar"}
+    hashmap = {}
+    hashmap[a] = 'foo'
+    hashmap[b] = 'bar'
+    assert_equal hashmap, TimeOfDay.new(10, 11, 12) => 'bar'
   end
 
   def test_inspect
     a = TimeOfDay.new(10, 11, 12)
     p a.inspect
-    assert_equal a.inspect, "#<TimeOfDay hour=10, minute=11, second=12>"
+    assert_equal a.inspect, '#<TimeOfDay hour=10, minute=11, second=12>'
   end
 end
