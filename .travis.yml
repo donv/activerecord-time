@@ -25,5 +25,3 @@ matrix:
     - rvm: jruby
       env: ADAPTER="sqlite3"
     - rvm: ruby-2.7
-    - rvm: jruby
-      gemfile: gemfiles/ar60.gemfile
