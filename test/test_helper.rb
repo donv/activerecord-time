@@ -15,8 +15,10 @@ require 'logger'
 require 'fileutils'
 require 'yaml'
 
-require 'simplecov'
-SimpleCov.start
+if defined?(Rake) && (RUBY_ENGINE != 'jruby' || org.jruby.RubyInstanceConfig.FULL_TRACE_ENABLED)
+  require 'simplecov'
+  SimpleCov.start
+end
 
 FileUtils.rm_rf File.expand_path(':memory:', File.dirname(__FILE__))
 config = YAML.load(IO.read(File.dirname(__FILE__) + '/database.yml'))

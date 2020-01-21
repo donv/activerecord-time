@@ -16,14 +16,14 @@ Gem::Specification.new do |gem|
   gem.summary = 'A handler for storing TimeOfDay objects in ActiveRecord objects as sql time values.'
   gem.homepage = 'https://github.com/donv/activerecord-time'
   gem.license = 'MIT'
-  gem.required_ruby_version = '>= 2.4'
+  gem.required_ruby_version = '>= 2.5'
 
   gem.files = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
   gem.executables = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   gem.test_files = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = %w[lib]
 
-  gem.add_runtime_dependency 'activerecord', '>=5.1', '<6'
+  gem.add_runtime_dependency 'activerecord', '>=5.1', '<6.1'
 
   if defined? JRUBY_VERSION
     gem.add_development_dependency 'activerecord-jdbcpostgresql-adapter'

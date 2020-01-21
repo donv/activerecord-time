@@ -11,7 +11,9 @@ class TimeOfDay
 
   def initialize(hour, minute = 0, second = 0)
     if hour == 24
-      raise "Invalid TimeOfDay. #{hour}:#{minute}:#{second} given, but highest allowed value is 24:00:00" unless minute == 0 && second == 0
+      unless minute == 0 && second == 0
+        raise "Invalid TimeOfDay. #{hour}:#{minute}:#{second} given, but highest allowed value is 24:00:00"
+      end
     else
       raise "Invalid hour: #{hour}" unless hour >= 0 && hour <= 23
     end

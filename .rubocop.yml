@@ -12,22 +12,24 @@ AllCops:
     - '**/Rakefile'
     - '**/*.rb'
 
-Layout/AlignParameters:
-  EnforcedStyle: with_fixed_indentation
+Layout/AssignmentIndentation:
   IndentationWidth: 4
 
-Layout/IndentFirstArgument:
+Layout/FirstArgumentIndentation:
   EnforcedStyle: consistent
   IndentationWidth: 4
 
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 
-Layout/IndentFirstHashElement:
+Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
 
-Layout/IndentAssignment:
-  IndentationWidth: 4
+Layout/LineLength:
+  Max: 107
+  AllowHeredoc: true
+  AllowURI: true
+  IgnoreCopDirectives: true
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
@@ -37,15 +39,13 @@ Layout/MultilineOperationIndentation:
   EnforcedStyle: indented
   IndentationWidth: 4
 
+Layout/ParameterAlignment:
+  EnforcedStyle: with_fixed_indentation
+  IndentationWidth: 4
+
 Metrics/BlockLength:
   Exclude:
     - '*.gemspec'
-
-Metrics/LineLength:
-  Max: 107
-  AllowHeredoc: true
-  AllowURI: true
-  IgnoreCopDirectives: true
 
 Naming/FileName:
   Exclude:
@@ -67,6 +67,9 @@ Style/Encoding:
 
 Style/FormatString:
   EnforcedStyle: percent
+
+Style/FormatStringToken:
+  EnforcedStyle: unannotated
 
 Style/NumericPredicate:
   Enabled: false
