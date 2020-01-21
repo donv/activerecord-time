@@ -24,5 +24,6 @@ matrix:
   allow_failures:
     - rvm: jruby
       env: ADAPTER="sqlite3"
+    - rvm: ruby-2.7
     - rvm: jruby
-      env: ADAPTER="sqlite3"
+      gemfile: gemfiles/ar60.gemfile
