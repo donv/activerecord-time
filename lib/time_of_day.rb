@@ -104,6 +104,17 @@ class TimeOfDay
     to_a <=> [other_tod.hour, other_tod.minute, other_tod.second]
   end
 
+  # Referring to the same H/M/S makes objects equal.
+  # and we only want one hash key.
+  def hash
+    @hour.hash ^ @minute.hash ^ @second.hash
+  end
+
+  # Referring to the same H/M/S makes objects equal.
+  def eql?(other)
+    self.hash == other.hash
+  end
+
   def strftime(format)
     on(Date.today).strftime(format)
   end
@@ -116,6 +127,10 @@ class TimeOfDay
     end
   rescue
     "#{@hour.inspect}:#{@minute.inspect}:#{@second.inspect}"
+  end
+
+  def inspect
+    "#<#{self.class} hour=#{@hour}, minute=#{@minute}, second=#{@second}>"
   end
 
   def to_a
