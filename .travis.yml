@@ -4,7 +4,7 @@ cache: bundler
 services:
   - postgresql
 jdk:
-  - openjdk
+  - openjdk11
 rvm:
   - ruby-2.7
   - ruby-2.6
