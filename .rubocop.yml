@@ -2,11 +2,13 @@ inherit_from: .rubocop_todo.yml
 require:
   - rubocop-performance
   - rubocop-rails
+  - rubocop-rake
 
 AllCops:
   TargetRubyVersion: 2.4
   DisplayCopNames: true
   DisplayStyleGuide: true
+  NewCops: enable
   Include:
     - '**/Gemfile'
     - '**/Rakefile'

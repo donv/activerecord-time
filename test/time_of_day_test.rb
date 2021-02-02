@@ -5,6 +5,7 @@ require File.expand_path('test_helper', File.dirname(__FILE__))
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 end
+
 class Event < ApplicationRecord
 end
 
@@ -154,7 +155,7 @@ class TimeOfDayTest < Minitest::Test
     tod2 = TimeOfDay.new(13, 0)
     assert_equal(-1, tod1 <=> tod2)
     assert_equal 1, tod2 <=> tod1
-    assert_equal 0, tod1 <=> tod1 # rubocop: disable Lint/UselessComparison
+    assert_equal 0, tod1 <=> tod1
   end
 
   def test_strftime
@@ -214,8 +215,6 @@ class TimeOfDayTest < Minitest::Test
   end
 
   def test_inspect
-    a = TimeOfDay.new(10, 11, 12)
-    p a.inspect
-    assert_equal a.inspect, '#<TimeOfDay hour=10, minute=11, second=12>'
+    assert_equal '#<TimeOfDay hour=10, minute=11, second=12>', TimeOfDay.new(10, 11, 12).inspect
   end
 end

@@ -25,7 +25,7 @@ unless defined?(SKIP_JRUBY)
 end
 
 platform :ruby do
-  gem 'pg', '<1'
+  gem 'pg'
   gem 'sqlite3'
 end
 
