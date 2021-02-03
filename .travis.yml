@@ -6,11 +6,13 @@ services:
 jdk:
   - openjdk11
 rvm:
+  - ruby-3.0
   - ruby-2.7
   - ruby-2.6
   - ruby-2.5
   - jruby
 gemfile:
+  - gemfiles/ar61.gemfile
   - gemfiles/ar60.gemfile
   - gemfiles/ar52.gemfile
   - gemfiles/ar51.gemfile
