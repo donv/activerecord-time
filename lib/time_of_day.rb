@@ -87,11 +87,12 @@ class TimeOfDay
   end
 
   def -(other)
-    if other.is_a?(TimeOfDay)
+    case other
+    when TimeOfDay
       t1 = Time.local(0, 1, 1, hour, minute, second) # rubocop: disable Rails/TimeZone
       t2 = Time.local(0, 1, 1, other.hour, other.minute, other.second) # rubocop: disable Rails/TimeZone
       (t1 - t2).seconds
-    elsif other.is_a?(Numeric)
+    when Numeric
       self.+(-other)
     else
       raise "Illegal argument: #{other.inspect}"
