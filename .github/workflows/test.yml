@@ -48,6 +48,9 @@ jobs:
         # Due to https://github.com/actions/runner/issues/849, we have to use quotes for '3.0'
         ruby: [ 2.6, 2.7, '3.0', jruby, truffleruby ]
         gemfile: [ ar61, ar60, ar52, ar51 ]
+        exclude:
+          - ruby: '3.0'
+            gemfile: [ ar52, ar51 ]
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
     steps:
