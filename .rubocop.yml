@@ -5,7 +5,6 @@ require:
   - rubocop-rake
 
 AllCops:
-  TargetRubyVersion: 2.4
   DisplayCopNames: true
   DisplayStyleGuide: true
   NewCops: enable

@@ -32,7 +32,6 @@ Gem::Specification.new do |gem|
     gem.add_development_dependency 'pg'
     gem.add_development_dependency 'sqlite3'
   end
-  gem.add_development_dependency 'minitest-reporters'
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rubocop'
   gem.add_development_dependency 'rubocop-performance'
