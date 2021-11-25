@@ -142,14 +142,16 @@ class TimeOfDayTest < Minitest::Test
     assert_equal 59, tod.second
   end
 
-  def test_minus_tod
-    tod1 = TimeOfDay.new(12, 0, 29)
-    tod2 = TimeOfDay.new(13, 30, 59)
-    duration = tod2 - tod1
+  if ActiveRecord.gem_version >= Gem::Version.new('6.1')
+    def test_minus_tod
+      tod1 = TimeOfDay.new(12, 0, 29)
+      tod2 = TimeOfDay.new(13, 30, 59)
+      duration = tod2 - tod1
 
-    assert_equal 1, duration.in_hours.to_i
-    assert_equal 30, duration.in_minutes.to_i % 60
-    assert_equal 30, duration.in_seconds % 60
+      assert_equal 1, duration.in_hours.to_i
+      assert_equal 30, duration.in_minutes.to_i % 60
+      assert_equal 30, duration.in_seconds % 60
+    end
   end
 
   def test_equality
