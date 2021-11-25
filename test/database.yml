@@ -6,6 +6,6 @@ postgresql:
   :adapter: postgresql
   :host: localhost
   :username: postgres
-  :password:
+  :password: password
   :database: activerecord-time_test
   :min_messages: ERROR
