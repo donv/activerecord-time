@@ -8,6 +8,12 @@ class Time
   end
 end
 
+class DateTime
+  def time_of_day
+    TimeOfDay.new(hour, min, sec)
+  end
+end
+
 class ActiveSupport::TimeWithZone
   def time_of_day
     TimeOfDay.new(hour, min, sec)
