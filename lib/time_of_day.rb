@@ -149,4 +149,8 @@ class TimeOfDay
   def to_json(*)
     %("#{self}")
   end
+
+  def utc?
+    true
+  end
 end

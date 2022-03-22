@@ -5,13 +5,13 @@ require 'active_record/connection_adapters/abstract/quoting'
 module Activerecord
   module Time
     module Quoting
-      def _quote(value)
+      def quote(value)
         return "'#{value}'" if value.is_a?(TimeOfDay)
 
         super(value)
       end
 
-      def _type_cast(value)
+      def type_cast(value)
         return value.to_s if value.is_a?(TimeOfDay)
 
         super(value)
@@ -20,8 +20,7 @@ module Activerecord
   end
 end
 
-# ActiveRecord::ConnectionAdapters::Quoting.prepend Activerecord::Time::Quoting
-ActiveRecord::ConnectionAdapters::AbstractAdapter.prepend Activerecord::Time::Quoting
+ActiveRecord::ConnectionAdapters::Quoting.prepend Activerecord::Time::Quoting
 
 module ActiveRecord
   module Type
