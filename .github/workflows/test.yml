@@ -1,14 +1,5 @@
 name: Test
 on: 
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'     
-        required: true
-        default: 'warning'
-      tags:
-        description: 'Test scenario tags'
-        required: false
   push:
     branches: [ master ]
   pull_request:
@@ -46,14 +37,10 @@ jobs:
       fail-fast: false
       matrix:
         # Due to https://github.com/actions/runner/issues/849, we have to use quotes for '3.0'
-        ruby: [ 2.6, 2.7, '3.0', jruby, truffleruby ]
-        gemfile: [ ar61, ar60, ar52, ar51 ]
+        ruby: [ 3.1, '3.0', 2.7, 2.6, jruby, truffleruby ]
+        gemfile: [ ar70, ar61 ]
         adapter: [ postgresql, sqlite3 ]
         exclude:
-          - ruby: '3.0'
-            gemfile: ar52
-          - ruby: '3.0'
-            gemfile: ar51
           - ruby: jruby
             adapter: sqlite3
     env:

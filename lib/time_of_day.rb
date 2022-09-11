@@ -9,32 +9,6 @@ class TimeOfDay
   attr_accessor :minute # 0 - 59
   attr_accessor :second # 0 - 59
 
-  def initialize(hour, minute = 0, second = 0)
-    if hour == 24
-      unless minute == 0 && second == 0
-        raise "Invalid TimeOfDay. #{hour}:#{minute}:#{second} given, but highest allowed value is 24:00:00"
-      end
-    else
-      raise "Invalid hour: #{hour}" unless hour >= 0 && hour <= 23
-    end
-    raise "Invalid minute: #{minute}" unless minute >= 0 && minute <= 59
-    raise "Invalid second: #{second}" unless second >= 0 && second <= 59
-
-    @hour = hour
-    @minute = minute
-    @second = second
-  end
-
-  def init_with(coder)
-    parts = self.class.parse_parts(coder.scalar)
-    initialize(*parts)
-  end
-
-  def encode_with(coder)
-    coder.tag = 'tag:yaml.org,2002:time'
-    coder.scalar = to_s
-  end
-
   def self.now
     Time.now.time_of_day # rubocop: disable Rails/TimeZone
   end
@@ -62,8 +36,30 @@ class TimeOfDay
     [hours.to_i, minutes.to_i, seconds.to_i]
   end
 
-  def acts_like_time?
-    true
+  def initialize(hour, minute = 0, second = 0)
+    if hour == 24
+      unless minute == 0 && second == 0
+        raise "Invalid TimeOfDay. #{hour}:#{minute}:#{second} given, but highest allowed value is 24:00:00"
+      end
+    else
+      raise "Invalid hour: #{hour}" unless hour >= 0 && hour <= 23
+    end
+    raise "Invalid minute: #{minute}" unless minute >= 0 && minute <= 59
+    raise "Invalid second: #{second}" unless second >= 0 && second <= 59
+
+    @hour = hour
+    @minute = minute
+    @second = second
+  end
+
+  def init_with(coder)
+    parts = self.class.parse_parts(coder.scalar)
+    initialize(*parts)
+  end
+
+  def encode_with(coder)
+    coder.tag = 'tag:yaml.org,2002:time'
+    coder.scalar = to_s
   end
 
   def in_time_zone(*)
@@ -137,6 +133,7 @@ class TimeOfDay
   rescue
     "#{@hour.inspect}:#{@minute.inspect}:#{@second.inspect}"
   end
+  alias_method :to_fs, :to_s
 
   def inspect
     "#<#{self.class} hour=#{@hour}, minute=#{@minute}, second=#{@second}>"

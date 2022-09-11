@@ -81,7 +81,11 @@ class TimeOfDayTest < Minitest::Test
   end
 
   def test_yaml_load
-    hash = YAML.load('start_at: !!time 12:34:56')
+    hash = if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('3.1')
+             YAML.load('start_at: !!time 12:34:56')
+           else
+             YAML.load('start_at: !!time 12:34:56', permitted_classes: [:TimeOfDay])
+           end
     assert_equal({ 'start_at' => TimeOfDay.parse('12:34:56') }, hash)
   end
 

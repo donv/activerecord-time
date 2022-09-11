@@ -20,11 +20,11 @@ module Activerecord
   end
 end
 
-ActiveRecord::ConnectionAdapters::Quoting.prepend Activerecord::Time::Quoting
+ActiveRecord::ConnectionAdapters::AbstractAdapter.prepend Activerecord::Time::Quoting
 
-module ActiveRecord
-  module Type
-    class Time < ActiveModel::Type::Time # :nodoc:
+module Activerecord
+  module Time
+    module Casting
       private def cast_value(value)
         return value.time_of_day if value.is_a?(::DateTime) || value.is_a?(::Time)
         return value unless value.is_a?(::String)
@@ -35,3 +35,4 @@ module ActiveRecord
     end
   end
 end
+ActiveRecord::Type::Time.prepend Activerecord::Time::Casting

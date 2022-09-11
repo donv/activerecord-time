@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby -w
 # frozen_string_literal: true
 
-system('rubocop --auto-correct') || exit(1)
+system('rubocop --auto-correct-all') || exit(1)
 
 update_gemfiles = ARGV.delete('--update')
 
