@@ -99,8 +99,9 @@ class TimeOfDayTest < Minitest::Test
   end
 
   def test_activerecord
-    Event.create! name: 'Bored meeting', start_at: @twelve_o_clock
+    t0 = Event.create! name: 'Bored meeting', start_at: @twelve_o_clock
     t = Event.where(start_at: '12:00:00').first
+    assert_equal t0, t
     assert_equal TimeOfDay, t.start_at.class
     assert_equal t, Event.where(start_at: @twelve_o_clock).first
     assert_equal t, Event.where('start_at = ?', @twelve_o_clock).first

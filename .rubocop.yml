@@ -58,7 +58,7 @@ Rails:
 
 Security/Eval:
   Exclude:
-    - 'gemfiles/*.gemfile'
+    - 'gemfiles/gems_*.rb'
 
 Style/Documentation:
   Enabled: false

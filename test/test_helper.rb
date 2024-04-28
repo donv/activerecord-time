@@ -19,7 +19,7 @@ if defined?(Rake) && (RUBY_ENGINE != 'jruby' || org.jruby.RubyInstanceConfig.FUL
 end
 
 FileUtils.rm_rf File.expand_path(':memory:', File.dirname(__FILE__))
-config = YAML.load(File.read(File.dirname(__FILE__) + '/database.yml'))
+config = YAML.load_file(File.dirname(__FILE__) + '/database.yml')
 ActiveRecord::Base.logger = Logger.new(File.dirname(__FILE__) + '/test.log')
 adapter = ENV['ADAPTER'] || 'sqlite3'
 if adapter != 'sqlite3'

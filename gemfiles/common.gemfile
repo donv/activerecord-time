@@ -1,32 +1,8 @@
 source 'https://rubygems.org'
 
-unless defined?(SKIP_JRUBY)
-  platform :jruby do
-    if defined?(RAILS_5)
-      git_source(:github) do |repo_name|
-        repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
-        "https://github.com/#{repo_name}.git"
-      end
-      gem 'activerecord-jdbc-adapter', github: 'jruby/activerecord-jdbc-adapter'
-      gem 'activerecord-jdbcderby-adapter', github: 'jruby/activerecord-jdbc-adapter'
-      gem 'activerecord-jdbcpostgresql-adapter', github: 'jruby/activerecord-jdbc-adapter'
-      gem 'activerecord-jdbcsqlite3-adapter', github: 'jruby/activerecord-jdbc-adapter'
-      gem 'jdbc-postgres', github: 'jruby/activerecord-jdbc-adapter'
-      gem 'jdbc-sqlite3', github: 'jruby/activerecord-jdbc-adapter'
-    else
-      # rubocop: disable Bundler/DuplicatedGem
-      gem 'activerecord-jdbc-adapter'
-      gem 'activerecord-jdbcderby-adapter'
-      gem 'activerecord-jdbcpostgresql-adapter'
-      gem 'activerecord-jdbcsqlite3-adapter'
-      # rubocop: enable Bundler/DuplicatedGem
-    end
-  end
-end
-
 platform :ruby do
   gem 'pg'
-  gem 'sqlite3'
+  gem 'sqlite3', '<2'
 end
 
 gem 'minitest-reporters'

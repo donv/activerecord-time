@@ -1,16 +1,16 @@
 #!/usr/bin/env ruby -w
 # frozen_string_literal: true
 
-system('rubocop --auto-correct-all') || exit(1)
+system('rubocop --autocorrect-all') || exit(1)
 
 update_gemfiles = ARGV.delete('--update')
 
 require 'yaml'
-travis = YAML.safe_load(File.read('.travis.yml'))
+actions = YAML.safe_load_file('.github/workflows/test.yml')
 
 def run_script(ruby, env, gemfile)
-  env.scan(/\b(?<key>[A-Z_]+)="(?<value>.+?)"/) do |key, value|
-    ENV[key] = value
+  env.each do |key, value|
+    ENV[key.to_s] = value
   end
   puts '*' * 80
   puts "Testing #{ruby} #{gemfile} #{env}"
@@ -24,10 +24,9 @@ def use_gemfile(ruby, gemfile, update_gemfiles)
   puts '$' * 80
   puts "Testing #{gemfile}"
   puts
-  ENV['BUNDLE_GEMFILE'] = gemfile
-  system "chruby-exec #{ruby} -- bundle -v"
+  ENV['BUNDLE_GEMFILE'] = "gemfiles/gems_#{gemfile}.rb"
   if update_gemfiles
-    system "chruby-exec #{ruby} -- bundle update"
+    system "chruby-exec #{ruby} -- bundle update && chruby-exec #{ruby} -- bundle update --bundler"
   else
     system "chruby-exec #{ruby} -- bundle check || chruby-exec #{ruby} -- bundle install"
   end || exit(1)
@@ -36,39 +35,42 @@ def use_gemfile(ruby, gemfile, update_gemfiles)
   puts '$' * 80
 end
 
-bad_variants = (travis.dig('matrix', 'exclude').to_a + travis.dig('matrix', 'allow_failures').to_a)
-
-travis['env']['global'].each do |env|
-  env.scan(/\b(?<key>[A-Z_]+)="(?<value>.+?)"/) do |key, value|
-    ENV[key] = value
+def bad_variant?(bad_variants, ruby, gemfile = nil, adapter = nil)
+  bad_variants.find do |f|
+    !(ruby.nil? ^ f['ruby'].nil?) && f['ruby'] == ruby &&
+        !(gemfile.nil? ^ f['gemfile'].nil?) && f['gemfile'] == gemfile &&
+        !(adapter.nil? ^ f['adapter'].nil?) && f['adapter'] == adapter
   end
 end
 
-travis['rvm'].each do |ruby|
-  next if /head/.match?(ruby) # ruby-install does not support HEAD installation
+actions['env'].each do |key, value|
+  ENV[key] = value
+end
+
+matrix = actions['jobs']['Test']['strategy']['matrix']
+bad_variants = matrix['exclude']
+
+matrix['ruby'].each do |ruby|
+  next if bad_variant?(bad_variants, ruby)
 
   puts '#' * 80
   puts "Testing #{ruby}"
   puts
-  system "ruby-install --no-reinstall #{ruby}" || exit(1)
-  bundler_version = '1.17.2'
-  gem_cmd = "chruby-exec #{ruby} -- gem"
-  system "#{gem_cmd} uninstall --force --all --version '!=#{bundler_version}' bundler"
-  bundler_gem_check_cmd = "#{gem_cmd} query -i -n '^bundler$' -v '#{bundler_version}' >/dev/null"
-  bundler_install_cmd = "#{gem_cmd} install bundler -v '#{bundler_version}'"
-  system "#{bundler_gem_check_cmd} || #{bundler_install_cmd}" || exit(1)
-  travis['gemfile'].each do |gemfile|
-    use_gemfile(ruby, gemfile, update_gemfiles) do
-      travis['env']['matrix'].each do |env|
-        bad_variant = bad_variants.any? do |f|
-          (f['rvm'].nil? || f['rvm'] == ruby) &&
-              (f['gemfile'].nil? || f['gemfile'] == gemfile) && (f['env'].nil? || f['env'] == env)
+  Bundler.with_unbundled_env do
+    system("ruby-install --no-reinstall #{ruby}") || exit(1)
+    matrix['gemfile'].each do |gemfile|
+      next if bad_variant?(bad_variants, ruby, gemfile)
+
+      use_gemfile(ruby, gemfile, update_gemfiles) do
+        matrix['adapter'].each do |adapter|
+          next if bad_variant?(bad_variants, ruby, gemfile, adapter)
+
+          puts '-' * 80
+          puts "Testing #{adapter}"
+          puts
+
+          run_script(ruby, { ADAPTER: adapter }, gemfile)
         end
-        if bad_variant
-          puts 'Skipping known failure.'
-          next
-        end
-        run_script(ruby, env, gemfile)
       end
     end
   end

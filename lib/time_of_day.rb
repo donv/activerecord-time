@@ -74,6 +74,14 @@ class TimeOfDay
     Time.local(date.year, date.month, date.day, hour, minute, second) # rubocop: disable Rails/TimeZone
   end
 
+  def change(*)
+    self
+  end
+
+  def year
+    2000
+  end
+
   def +(other)
     raise "Illegal argument: #{other.inspect}" unless other.is_a? Numeric
 
@@ -89,7 +97,7 @@ class TimeOfDay
       t2 = Time.local(0, 1, 1, other.hour, other.minute, other.second) # rubocop: disable Rails/TimeZone
       (t1 - t2).seconds
     when Numeric
-      self.+(-other)
+      self + -other
     else
       raise "Illegal argument: #{other.inspect}"
     end
@@ -133,7 +141,7 @@ class TimeOfDay
   rescue
     "#{@hour.inspect}:#{@minute.inspect}:#{@second.inspect}"
   end
-  alias_method :to_fs, :to_s
+  alias to_fs to_s
 
   def inspect
     "#<#{self.class} hour=#{@hour}, minute=#{@minute}, second=#{@second}>"

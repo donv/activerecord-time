@@ -8,6 +8,7 @@ class Time
   end
 end
 
+require 'date'
 class DateTime
   def time_of_day
     TimeOfDay.new(hour, min, sec)
