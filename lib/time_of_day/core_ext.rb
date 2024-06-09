@@ -23,6 +23,8 @@ end
 
 class Date
   def at(time_of_day)
+    return if time_of_day.nil?
+
     time_of_day = TimeOfDay.parse(time_of_day) if time_of_day.is_a?(String)
     zone = Time.zone || Time
     zone.local(year, month, day, time_of_day.hour, time_of_day.minute, time_of_day.second)

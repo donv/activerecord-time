@@ -6,6 +6,7 @@ system('rubocop --autocorrect-all') || exit(1)
 update_gemfiles = ARGV.delete('--update')
 
 require 'yaml'
+require 'bundler'
 actions = YAML.safe_load_file('.github/workflows/test.yml')
 
 def run_script(ruby, env, gemfile)
@@ -36,7 +37,7 @@ def use_gemfile(ruby, gemfile, update_gemfiles)
 end
 
 def bad_variant?(bad_variants, ruby, gemfile = nil, adapter = nil)
-  bad_variants.find do |f|
+  bad_variants&.find do |f|
     !(ruby.nil? ^ f['ruby'].nil?) && f['ruby'] == ruby &&
         !(gemfile.nil? ^ f['gemfile'].nil?) && f['gemfile'] == gemfile &&
         !(adapter.nil? ^ f['adapter'].nil?) && f['adapter'] == adapter

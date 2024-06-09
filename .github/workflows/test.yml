@@ -36,18 +36,23 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Due to https://github.com/actions/runner/issues/849, we have to use quotes for '3.0'
         ruby: [ 3.3, 3.2, 3.1, jruby, truffleruby ]
         gemfile: [ ar71, ar70 ]
         adapter: [ postgresql, sqlite3 ]
         exclude:
           - ruby: jruby
+            gemfile: ar71 # Not released, yet.
+          - ruby: jruby
+            gemfile: ar70 # Fails, please investigate.
           - ruby: truffleruby
+            gemfile: ar71 # Fails, please investigate.
+          - ruby: truffleruby
+            gemfile: ar70 # Fails, please investigate.
     env:
       ADAPTER: ${{ matrix.adapter }}
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/gems_${{ matrix.gemfile }}.rb
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
