@@ -15,4 +15,4 @@ platform :jruby do
   gem 'jdbc-sqlite3', github: 'jruby/activerecord-jdbc-adapter'
 end
 
-gem 'activerecord', '~>7.1.0'
+gem 'activerecord', '~>7.2.0'

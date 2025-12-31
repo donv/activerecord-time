@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3'
+          ruby-version: '3.4'
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Rubocop
         run: bundle exec rubocop --auto-correct-all
@@ -36,14 +36,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: [ 3.3, 3.2, 3.1, jruby, truffleruby ]
-        gemfile: [ ar71, ar70 ]
+        ruby: [ 3.4, 3.3, jruby, truffleruby ]
+        gemfile: [ ar80, ar72 ]
         adapter: [ postgresql, sqlite3 ]
         exclude:
           - ruby: jruby
-            gemfile: ar71 # Not released, yet.
+            gemfile: ar72 # Not released, yet.
           - ruby: jruby
-            gemfile: ar70 # Fails, please investigate.
+            gemfile: ar80 # Fails, please investigate.
           - ruby: truffleruby
             gemfile: ar71 # Fails, please investigate.
           - ruby: truffleruby

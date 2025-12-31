@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 platform :ruby do
   gem 'pg'
-  gem 'sqlite3', '<2'
+  gem 'sqlite3'
 end
 
 gem 'minitest-reporters'

@@ -1,5 +1,5 @@
 inherit_from: .rubocop_todo.yml
-require:
+plugins:
   - rubocop-performance
   - rubocop-rails
   - rubocop-rake
@@ -30,7 +30,7 @@ Layout/LineLength:
   Max: 107
   AllowHeredoc: true
   AllowURI: true
-  IgnoreCopDirectives: true
+  AllowCopDirectives: true
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented

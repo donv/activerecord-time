@@ -42,10 +42,10 @@ class TimeOfDay
         raise "Invalid TimeOfDay. #{hour}:#{minute}:#{second} given, but highest allowed value is 24:00:00"
       end
     else
-      raise "Invalid hour: #{hour}" unless hour >= 0 && hour <= 23
+      raise "Invalid hour: #{hour}" unless hour.between?(0, 23)
     end
-    raise "Invalid minute: #{minute}" unless minute >= 0 && minute <= 59
-    raise "Invalid second: #{second}" unless second >= 0 && second <= 59
+    raise "Invalid minute: #{minute}" unless minute.between?(0, 59)
+    raise "Invalid second: #{second}" unless second.between?(0, 59)
 
     @hour = hour
     @minute = minute

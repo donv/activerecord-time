@@ -124,3 +124,9 @@ Run tests using
     ./matrix_test.rb
 
 This will run the tests for the same environments as travis-ci.
+
+## Release
+
+* Update the version in [lib/activerecord-time/version.rb](lib/activerecord-time/version.rb)
+* Commit all changes
+* Run `rake release`
